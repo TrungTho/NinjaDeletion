@@ -12,14 +12,28 @@
     <h1>files:
     </h1>
     <ul>
-      <li></li>
-      <li></li>
-      <li></li>
+      <div>hello <button id="remove">-</button></div>
+      <div>hello <button id="remove">-</button></div>
+      <div>hello <button id="remove">-</button></div>
     </ul>
   </div>
   <div>
+    <button id="btnReset">Reset</button>
+    <button id="btnAdd">Add more</button>
     <button id="btnChoose" onclick="openDialog()">Choose</button>
-    <button>Start</button>
+    <br>
+    <input type="number" name="inpDelayTime" id="inpDelayTime" placeholder="0s">
+    <button id="btnStart">Start</button>
+    <br>
+    <br>
+    <input type="checkbox" name="checkFinishClose" id="checkFinishClose">
+    <label for="checkFinishClose">Close when finish?</label>
+    <br>
+    <input type="checkbox" name="checkUninstall" id="checkUninstall">
+    <label for="checkUninstall">Uninstall app when finish?</label>
+    <br>
+    <br>
+    <button>Hide to tray icon</button>
   </div>
   <script src="./renderer.js"></script>
 </body>
