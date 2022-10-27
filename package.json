@@ -1,0 +1,17 @@
+{
+  "name": "ninja0-deletion-app",
+  "productName": "elderly-song-jail-3e4ai",
+  "description": "My Electron application description",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.0.0",
+  "author": "TTTPC",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^20.1.4"
+  },
+  "license": "MIT"
+}
