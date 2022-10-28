@@ -145,6 +145,26 @@ function gatherPath() {
   return files;
 }
 
+async function onClickBtnStart() {
+  if (
+    document.getElementById("listToDel").getElementsByTagName("div").length ===
+    0
+  ) {
+    return;
+  }
+
+  let button = await Neutralino.os.showMessageBox(
+    "Confirm",
+    "Do you want to start deletion?",
+    "YES_NO",
+    "QUESTION"
+  );
+
+  if (button === "YES") {
+    startCountDown();
+  }
+}
+
 function startCountDown() {
   const delayTimeStr = document.getElementById("inpDelayTime").value;
   let delayTime = 0;

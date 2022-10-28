@@ -22,8 +22,8 @@
     <button id="btnChoose" onclick="openDialog()">Choose files</button>
     <button id="btnChooseFolder" onclick="openFolderDialog()">Choose folder</button>
     <hr>
-    <input type="number" name="inpDelayTime" id="inpDelayTime" placeholder="0s">
-    <button id="btnStart" onclick="startCountDown()">Start</button>
+    <input type="number" min="0" name="inpDelayTime" id="inpDelayTime" placeholder="0s">
+    <button id="btnStart" onclick="onClickBtnStart()">Start</button>
     <hr>
     <hr>
     <input type="checkbox" name="checkFinishClose" id="checkFinishClose">

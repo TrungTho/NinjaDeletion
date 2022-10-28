@@ -13,14 +13,7 @@
     "writeToLogFile": true
   },
   "nativeAllowList": ["app.*", "os.*", "debug.log", "filesystem.*"],
-  "globalVariables": {
-    "TEST1": "Hello",
-    "TEST2": [2, 4, 5],
-    "TEST3": {
-      "value1": 10,
-      "value2": {}
-    }
-  },
+  "globalVariables": {},
   "modes": {
     "window": {
       "title": "ninja-deletion",
@@ -39,9 +32,7 @@
       "exitProcessOnClose": false
     },
     "browser": {
-      "globalVariables": {
-        "TEST": "Test value browser"
-      }
+      "globalVariables": {}
     },
     "cloud": {
       "url": "/resources/#cloud",
