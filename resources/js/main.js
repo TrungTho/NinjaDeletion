@@ -110,6 +110,7 @@ async function openFolderDialog() {
 async function deleteFile(items) {
   console.debug("i want to delete:");
   console.debug(items);
+
   for (let item of items) {
     if (item.type === ITEM_TYPE.FILE) {
       try {
@@ -174,7 +175,9 @@ function startCountDown() {
 
   console.debug(`btnStart clicked! ${delayTime} second(s)`);
   const allFileToDel = gatherPath();
-  deleteFile(allFileToDel);
+  setTimeout(() => {
+    deleteFile(allFileToDel);
+  }, delayTime * 1000);
 }
 
 function hideApp() {
