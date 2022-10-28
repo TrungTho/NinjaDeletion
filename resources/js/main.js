@@ -3,52 +3,38 @@
 // Feel free to use any frontend framework you like :)
 // See more details: https://neutralino.js.org/docs/how-to/use-a-frontend-library
 
-function showInfo() {
-    document.getElementById('info').innerHTML = `
-        ${NL_APPID} is running on port ${NL_PORT}  inside ${NL_OS}
-        <br/><br/>
-        <span>server: v${NL_VERSION} . client: v${NL_CVERSION}</span>
-        `;
-}
-
-function openDocs() {
-    Neutralino.os.open("https://neutralino.js.org/docs");
-}
-
-function openTutorial() {
-    Neutralino.os.open("https://www.youtube.com/watch?v=txDlNNsgSh8&list=PLvTbqpiPhQRb2xNQlwMs0uVV0IN8N-pKj");
-}
-
 function setTray() {
-    if(NL_MODE != "window") {
-        console.log("INFO: Tray menu is only available in the window mode.");
-        return;
-    }
-    let tray = {
-        icon: "/resources/icons/trayIcon.png",
-        menuItems: [
-            {id: "VERSION", text: "Get version"},
-            {id: "SEP", text: "-"},
-            {id: "QUIT", text: "Quit"}
-        ]
-    };
-    Neutralino.os.setTray(tray);
+  if (NL_MODE != "window") {
+    console.debug("INFO: Tray menu is only available in the window mode.");
+    return;
+  }
+  let tray = {
+    icon: "/resources/icons/ninja.png",
+    menuItems: [
+      { id: "VERSION", text: "Get version" },
+      { id: "SEP", text: "-" },
+      { id: "QUIT", text: "Quit" },
+    ],
+  };
+  Neutralino.os.setTray(tray);
 }
 
 function onTrayMenuItemClicked(event) {
-    switch(event.detail.id) {
-        case "VERSION":
-            Neutralino.os.showMessageBox("Version information",
-                `Neutralinojs server: v${NL_VERSION} | Neutralinojs client: v${NL_CVERSION}`);
-            break;
-        case "QUIT":
-            Neutralino.app.exit();
-            break;
-    }
+  switch (event.detail.id) {
+    case "VERSION":
+      Neutralino.os.showMessageBox(
+        "Version information",
+        `Neutralinojs server: v${NL_VERSION} | Neutralinojs client: v${NL_CVERSION}`
+      );
+      break;
+    case "QUIT":
+      Neutralino.app.exit();
+      break;
+  }
 }
 
 function onWindowClose() {
-    Neutralino.app.exit();
+  Neutralino.app.exit();
 }
 
 Neutralino.init();
@@ -56,8 +42,69 @@ Neutralino.init();
 Neutralino.events.on("trayMenuItemClicked", onTrayMenuItemClicked);
 Neutralino.events.on("windowClose", onWindowClose);
 
-if(NL_OS != "Darwin") { // TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
-    setTray();
+if (NL_OS != "Darwin") {
+  // TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
+  setTray();
 }
 
-showInfo();
+function resetList() {
+  console.debug("btnReset clicked");
+}
+
+function addToList(elements) {
+  let list = [];
+  switch (typeof elements) {
+    case "string": {
+      console.debug("input from pick folder");
+      list.push(elements);
+      break;
+    }
+
+    case "object": {
+      console.debug("input from pick files");
+      list = elements;
+      break;
+    }
+  }
+
+  const ul = document.getElementById("listToDel");
+  for (let e of list) {
+    const item = document.createElement("div");
+    item.appendChild(document.createTextNode(e));
+    ul.appendChild(item);
+  }
+}
+
+async function openDialog() {
+  console.debug("btnChoose clicked");
+  let entries = await Neutralino.os.showOpenDialog(
+    "You choose file, I will do the rest",
+    {
+      defaultPath: "./",
+      filters: [{ name: "All files", extensions: ["*"] }],
+      multiSelections: true,
+    }
+  );
+  console.debug("You have selected:", entries);
+  addToList(entries);
+}
+
+async function openFolderDialog() {
+  console.debug("btnChooseFolder clicked");
+  let entry = await Neutralino.os.showFolderDialog(
+    "You choose folder, I will take the rest",
+    {
+      defaultPath: "./",
+    }
+  );
+  console.debug("You have selected:", entry);
+  addToList(entry);
+}
+
+function startCountDown() {
+  console.debug("btnStart clicked!");
+}
+
+function hideApp() {
+  console.debug("btnHide clicked");
+}

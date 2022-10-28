@@ -11,31 +11,32 @@
   <div>
     <h1>files:
     </h1>
-    <ul>
-      <div>hello <button id="remove">-</button></div>
-      <div>hello <button id="remove">-</button></div>
-      <div>hello <button id="remove">-</button></div>
+    <ul id="listToDel">
+
     </ul>
   </div>
+  <hr>
   <div>
-    <button id="btnReset">Reset</button>
-    <button id="btnAdd">Add more</button>
-    <button id="btnChoose" onclick="openDialog()">Choose</button>
-    <br>
+    <button id="btnReset" onclick="resetList()">Reset</button>
+    <!-- <button id="btnAdd">Add more</button> -->
+    <button id="btnChoose" onclick="openDialog()">Choose files</button>
+    <button id="btnChooseFolder" onclick="openFolderDialog()">Choose folder</button>
+    <hr>
     <input type="number" name="inpDelayTime" id="inpDelayTime" placeholder="0s">
-    <button id="btnStart">Start</button>
-    <br>
-    <br>
+    <button id="btnStart" onclick="startCountDown()">Start</button>
+    <hr>
+    <hr>
     <input type="checkbox" name="checkFinishClose" id="checkFinishClose">
     <label for="checkFinishClose">Close when finish?</label>
-    <br>
+    <hr>
     <input type="checkbox" name="checkUninstall" id="checkUninstall">
     <label for="checkUninstall">Uninstall app when finish?</label>
-    <br>
-    <br>
-    <button>Hide to tray icon</button>
+    <hr>
+    <hr>
+    <button id="btnHide" onclick="hideApp()">Hide to tray icon</button>
   </div>
-  <script src="./renderer.js"></script>
+  <script src="js/neutralino.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
