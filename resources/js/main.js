@@ -2,14 +2,13 @@
 // This example app is written with vanilla JavaScript and HTML.
 // Feel free to use any frontend framework you like :)
 // See more details: https://neutralino.js.org/docs/how-to/use-a-frontend-library
-
 function setTray() {
   if (NL_MODE != "window") {
     console.debug("INFO: Tray menu is only available in the window mode.");
     return;
   }
   let tray = {
-    icon: "/resources/icons/ninja.png",
+    icon: "/resources/icons/ninjaIcon.png",
     menuItems: [
       { id: "VERSION", text: "Get version" },
       { id: "SEP", text: "-" },
@@ -49,10 +48,12 @@ if (NL_OS != "Darwin") {
 
 function resetList() {
   console.debug("btnReset clicked");
+  document.getElementById("listToDel").innerHTML = "";
 }
 
 function addToList(elements) {
   let list = [];
+  let isFile = false;
   switch (typeof elements) {
     case "string": {
       console.debug("input from pick folder");
@@ -63,6 +64,7 @@ function addToList(elements) {
     case "object": {
       console.debug("input from pick files");
       list = elements;
+      isFile = true;
       break;
     }
   }
@@ -71,6 +73,10 @@ function addToList(elements) {
   for (let e of list) {
     const item = document.createElement("div");
     item.appendChild(document.createTextNode(e));
+    item.setAttribute(
+      "item-type",
+      isFile === true ? ITEM_TYPE.FILE : ITEM_TYPE.FOLDER
+    );
     ul.appendChild(item);
   }
 }
@@ -101,8 +107,54 @@ async function openFolderDialog() {
   addToList(entry);
 }
 
+async function deleteFile(items) {
+  console.debug("i want to delete:");
+  console.debug(items);
+  for (let item of items) {
+    if (item.type === ITEM_TYPE.FILE) {
+      try {
+        await Neutralino.filesystem.removeFile(item.path);
+      } catch (e) {
+        console.error("failed to delete file:", JSON.stringify(e));
+      }
+    } else if (item.type === ITEM_TYPE.FOLDER) {
+      try {
+        await Neutralino.filesystem.removeDirectory(item.path);
+      } catch (e) {
+        console.error("failed to delete folder:", JSON.stringify(e));
+      }
+    }
+  }
+  resetList();
+}
+
+function gatherPath() {
+  let files = [];
+  let divCollection = document
+    .getElementById("listToDel")
+    .getElementsByTagName("div");
+
+  for (let div of divCollection) {
+    const item = {
+      type: div.getAttribute("item-type"),
+      path: div.innerText,
+    };
+    files.push(item);
+  }
+
+  return files;
+}
+
 function startCountDown() {
-  console.debug("btnStart clicked!");
+  const delayTimeStr = document.getElementById("inpDelayTime").value;
+  let delayTime = 0;
+  if (!isNaN(delayTimeStr)) {
+    delayTime = parseInt(delayTimeStr) || 0; //|| 0 is for "" because !isNaN("") = true
+  }
+
+  console.debug(`btnStart clicked! ${delayTime} second(s)`);
+  const allFileToDel = gatherPath();
+  deleteFile(allFileToDel);
 }
 
 function hideApp() {
