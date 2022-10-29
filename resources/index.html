@@ -17,13 +17,13 @@
   </div>
   <hr>
   <div>
-    <button id="btnReset" onclick="resetList()">Reset</button>
-    <!-- <button id="btnAdd">Add more</button> -->
-    <button id="btnChoose" onclick="openDialog()">Choose files</button>
-    <button id="btnChooseFolder" onclick="openFolderDialog()">Choose folder</button>
+    <button id="btnReset">Reset</button>
+    <!-- <button id=" btnAdd">Add more</button> -->
+    <button id="btnChoose">Choose files</button>
+    <button id="btnChooseFolder">Choose folder</button>
     <hr>
     <input type="number" min="0" name="inpDelayTime" id="inpDelayTime" placeholder="0s">
-    <button id="btnStart" onclick="onClickBtnStart()">Start</button>
+    <button id="btnStart">Start</button>
     <hr>
     <hr>
     <input type="checkbox" name="checkFinishClose" id="checkFinishClose">
@@ -33,11 +33,10 @@
     <label for="checkUninstall">Uninstall app when finish?</label>
     <hr>
     <hr>
-    <button id="btnHide" onclick="hideApp()">Hide to tray icon</button>
+    <button id="btnHide">Hide to tray icon</button>
   </div>
   <script src="js/neutralino.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/constants.js"></script>
+  <script src="js/main.js" type="module"></script>
 </body>
 
 </html>

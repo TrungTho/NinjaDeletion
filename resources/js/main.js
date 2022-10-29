@@ -1,7 +1,6 @@
-// This is just a sample app. You can structure your Neutralinojs app code as you wish.
-// This example app is written with vanilla JavaScript and HTML.
-// Feel free to use any frontend framework you like :)
-// See more details: https://neutralino.js.org/docs/how-to/use-a-frontend-library
+import { ITEM_TYPE } from "./constants.js";
+import { gatherPath, deleteFile } from "./file.controller.js";
+
 function setTray() {
   if (NL_MODE != "window") {
     console.debug("INFO: Tray menu is only available in the window mode.");
@@ -41,12 +40,22 @@ Neutralino.init();
 Neutralino.events.on("trayMenuItemClicked", onTrayMenuItemClicked);
 Neutralino.events.on("windowClose", onWindowClose);
 
+document.getElementById("btnReset").addEventListener("click", onClickBtnReset);
+document
+  .getElementById("btnChoose")
+  .addEventListener("click", onClickBtnChoose);
+document
+  .getElementById("btnChooseFolder")
+  .addEventListener("click", onClickBtnChooseFolder);
+document.getElementById("btnStart").addEventListener("click", onClickBtnStart);
+document.getElementById("btnHide").addEventListener("click", onClickBtnHide);
+
 if (NL_OS != "Darwin") {
   // TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
   setTray();
 }
 
-function resetList() {
+function onClickBtnReset() {
   console.debug("btnReset clicked");
   document.getElementById("listToDel").innerHTML = "";
 }
@@ -81,7 +90,7 @@ function addToList(elements) {
   }
 }
 
-async function openDialog() {
+async function onClickBtnChoose() {
   console.debug("btnChoose clicked");
   let entries = await Neutralino.os.showOpenDialog(
     "You choose file, I will do the rest",
@@ -95,7 +104,7 @@ async function openDialog() {
   addToList(entries);
 }
 
-async function openFolderDialog() {
+async function onClickBtnChooseFolder() {
   console.debug("btnChooseFolder clicked");
   let entry = await Neutralino.os.showFolderDialog(
     "You choose folder, I will take the rest",
@@ -107,43 +116,19 @@ async function openFolderDialog() {
   addToList(entry);
 }
 
-async function deleteFile(items) {
-  console.debug("i want to delete:");
-  console.debug(items);
-
-  for (let item of items) {
-    if (item.type === ITEM_TYPE.FILE) {
-      try {
-        await Neutralino.filesystem.removeFile(item.path);
-      } catch (e) {
-        console.error("failed to delete file:", JSON.stringify(e));
-      }
-    } else if (item.type === ITEM_TYPE.FOLDER) {
-      try {
-        await Neutralino.filesystem.removeDirectory(item.path);
-      } catch (e) {
-        console.error("failed to delete folder:", JSON.stringify(e));
-      }
-    }
-  }
-  resetList();
-}
-
-function gatherPath() {
-  let files = [];
-  let divCollection = document
-    .getElementById("listToDel")
-    .getElementsByTagName("div");
-
-  for (let div of divCollection) {
-    const item = {
-      type: div.getAttribute("item-type"),
-      path: div.innerText,
-    };
-    files.push(item);
+function startCountDown() {
+  const delayTimeStr = document.getElementById("inpDelayTime").value;
+  let delayTime = 0;
+  if (!isNaN(delayTimeStr)) {
+    delayTime = parseInt(delayTimeStr) || 0; //|| 0 is for "" because !isNaN("") = true
   }
 
-  return files;
+  console.debug(`btnStart clicked! ${delayTime} second(s)`);
+  const allFileToDel = gatherPath();
+  setTimeout(async () => {
+    await deleteFile(allFileToDel);
+    onClickBtnReset();
+  }, delayTime * 1000);
 }
 
 async function onClickBtnStart() {
@@ -166,20 +151,6 @@ async function onClickBtnStart() {
   }
 }
 
-function startCountDown() {
-  const delayTimeStr = document.getElementById("inpDelayTime").value;
-  let delayTime = 0;
-  if (!isNaN(delayTimeStr)) {
-    delayTime = parseInt(delayTimeStr) || 0; //|| 0 is for "" because !isNaN("") = true
-  }
-
-  console.debug(`btnStart clicked! ${delayTime} second(s)`);
-  const allFileToDel = gatherPath();
-  setTimeout(() => {
-    deleteFile(allFileToDel);
-  }, delayTime * 1000);
-}
-
-function hideApp() {
+function onClickBtnHide() {
   console.debug("btnHide clicked");
 }
