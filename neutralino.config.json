@@ -12,7 +12,19 @@
     "enabled": true,
     "writeToLogFile": true
   },
-  "nativeAllowList": ["app.*", "os.*", "debug.log", "filesystem.*"],
+  "nativeAllowList": [
+    "app.exit",
+    "os.showMessageBox",
+    "os.setTray",
+    "os.showOpenDialog",
+    "os.showFolderDialog",
+    "debug.log",
+    "filesystem.removeFile",
+    "filesystem.removeDirectory",
+    "window.hide",
+    "window.show",
+    "window.isVisible"
+  ],
   "globalVariables": {},
   "modes": {
     "window": {

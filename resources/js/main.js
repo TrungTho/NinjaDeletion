@@ -1,7 +1,7 @@
 import { gatherPath, deleteFile } from "./file.controller.js";
 import { ITEM_TYPE } from "./constants.js";
 
-function setTray() {
+async function setTray() {
   if (NL_MODE != "window") {
     console.debug("INFO: Tray menu is only available in the window mode.");
     return;
@@ -11,13 +11,21 @@ function setTray() {
     menuItems: [
       { id: "VERSION", text: "Get version" },
       { id: "SEP", text: "-" },
-      { id: "QUIT", text: "Quit" },
+      {
+        id: "QUIT",
+        text: "Quit",
+      },
+      {
+        id: "SHOW",
+        text: "Show",
+        isDisabled: await Neutralino.window.isVisible(),
+      },
     ],
   };
   Neutralino.os.setTray(tray);
 }
 
-function onTrayMenuItemClicked(event) {
+async function onTrayMenuItemClicked(event) {
   switch (event.detail.id) {
     case "VERSION":
       Neutralino.os.showMessageBox(
@@ -27,6 +35,10 @@ function onTrayMenuItemClicked(event) {
       break;
     case "QUIT":
       Neutralino.app.exit();
+      break;
+    case "SHOW":
+      await Neutralino.window.show();
+      setTray();
       break;
   }
 }
@@ -165,8 +177,10 @@ async function onClickBtnStart() {
   }
 }
 
-function onClickBtnHide() {
+async function onClickBtnHide() {
   console.debug("btnHide clicked");
+  await Neutralino.window.hide();
+  setTray();
 }
 
 function onClickBtnRemoveItem(itemId) {
