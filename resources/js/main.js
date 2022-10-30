@@ -1,5 +1,5 @@
-import { ITEM_TYPE } from "./constants.js";
 import { gatherPath, deleteFile } from "./file.controller.js";
+import { ITEM_TYPE } from "./constants.js";
 
 function setTray() {
   if (NL_MODE != "window") {
@@ -49,6 +49,9 @@ document
   .addEventListener("click", onClickBtnChooseFolder);
 document.getElementById("btnStart").addEventListener("click", onClickBtnStart);
 document.getElementById("btnHide").addEventListener("click", onClickBtnHide);
+function getListElement() {
+  return document.getElementById("listToDel");
+}
 
 if (NL_OS != "Darwin") {
   // TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
@@ -57,7 +60,7 @@ if (NL_OS != "Darwin") {
 
 function onClickBtnReset() {
   console.debug("btnReset clicked");
-  document.getElementById("listToDel").innerHTML = "";
+  getListElement().innerHTML = "";
 }
 
 function addToList(elements) {
@@ -79,13 +82,27 @@ function addToList(elements) {
   }
 
   const ul = document.getElementById("listToDel");
+  const existingAmount = ul.getElementsByTagName("div").length; //elements that already existing in ul
+  let idx = 0;
+
   for (let e of list) {
     const item = document.createElement("div");
+    const btn = document.createElement("button");
+    const divId = `item-${idx + existingAmount}`;
+    idx++;
+
+    // btn.textContent = "-";
+
+    item.appendChild(btn);
     item.appendChild(document.createTextNode(e));
+
+    item.setAttribute("id", divId);
     item.setAttribute(
       "item-type",
       isFile === true ? ITEM_TYPE.FILE : ITEM_TYPE.FOLDER
     );
+    btn.addEventListener("click", onClickBtnRemoveItem.bind(null, divId));
+
     ul.appendChild(item);
   }
 }
@@ -132,10 +149,7 @@ function startCountDown() {
 }
 
 async function onClickBtnStart() {
-  if (
-    document.getElementById("listToDel").getElementsByTagName("div").length ===
-    0
-  ) {
+  if (getListElement().getElementsByTagName("div").length === 0) {
     return;
   }
 
@@ -153,4 +167,14 @@ async function onClickBtnStart() {
 
 function onClickBtnHide() {
   console.debug("btnHide clicked");
+}
+
+function onClickBtnRemoveItem(itemId) {
+  console.debug("remove item", itemId);
+  try {
+    const ul = getListElement();
+    ul.querySelector(`#${itemId}`).remove();
+  } catch (e) {
+    console.debug("failed to remove item from list", e);
+  }
 }
