@@ -1,5 +1,11 @@
 import { gatherPath, deleteFile } from "./file.controller.js";
-import { ITEM_TYPE } from "./constants.js";
+import {
+  getListElement,
+  getTimerInput,
+  createItemInList,
+  countItemInList,
+  getButtonInItem,
+} from "./view.js";
 
 async function setTray() {
   if (NL_MODE != "window") {
@@ -60,10 +66,8 @@ document
   .getElementById("btnChooseFolder")
   .addEventListener("click", onClickBtnChooseFolder);
 document.getElementById("btnStart").addEventListener("click", onClickBtnStart);
+document.getElementById("btnStop").addEventListener("click", onClickBtnStop);
 document.getElementById("btnHide").addEventListener("click", onClickBtnHide);
-function getListElement() {
-  return document.getElementById("listToDel");
-}
 
 if (NL_OS != "Darwin") {
   // TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
@@ -93,30 +97,23 @@ function addToList(elements) {
     }
   }
 
-  const ul = document.getElementById("listToDel");
-  const existingAmount = ul.getElementsByTagName("div").length; //elements that already existing in ul
+  const ul = getListElement();
+  const existingAmount = countItemInList(); //elements that already existing in ul
   let idx = 0;
 
   for (let e of list) {
-    const item = document.createElement("div");
-    const btn = document.createElement("button");
-    const divId = `item-${idx + existingAmount}`;
+    const item = createItemInList(e, idx + existingAmount, isFile);
     idx++;
-
-    // btn.textContent = "-";
-
-    item.appendChild(btn);
-    item.appendChild(document.createTextNode(e));
-
-    item.setAttribute("id", divId);
-    item.setAttribute(
-      "item-type",
-      isFile === true ? ITEM_TYPE.FILE : ITEM_TYPE.FOLDER
-    );
-    btn.addEventListener("click", onClickBtnRemoveItem.bind(null, divId));
+    const btn = getButtonInItem(item);
+    btn.addEventListener("click", onClickBtnRemoveItem.bind(null, item.id));
 
     ul.appendChild(item);
   }
+}
+
+//debug
+{
+  addToList(["hehe", "hoho", "huhu"]);
 }
 
 async function onClickBtnChoose() {
@@ -146,7 +143,7 @@ async function onClickBtnChooseFolder() {
 }
 
 function startCountDown() {
-  const delayTimeStr = document.getElementById("inpDelayTime").value;
+  const delayTimeStr = getTimerInput().value;
   let delayTime = 0;
   if (!isNaN(delayTimeStr)) {
     delayTime = parseInt(delayTimeStr) || 0; //|| 0 is for "" because !isNaN("") = true
@@ -175,6 +172,9 @@ async function onClickBtnStart() {
   if (button === "YES") {
     startCountDown();
   }
+}
+async function onClickBtnStop() {
+  console.debug("btnStop clicked");
 }
 
 async function onClickBtnHide() {
