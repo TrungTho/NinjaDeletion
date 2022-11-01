@@ -12,6 +12,7 @@ import {
 } from "./view.js";
 
 import {
+  scheduleTimeout,
   startInteval,
   stopInterval,
   stopScheduleTimeout,
@@ -177,15 +178,16 @@ function startCountDown() {
 
   //display count down timer
   window.timerVal = delayTime - 1;
-  intervalTimer = startInteval(updateTimer, SECOND * 1000);
+  intervalTimer = startInteval(updateTimer, 1 * SECOND);
 
   //shedule time to call func delete files
   console.debug(`btnStart clicked! ${delayTime} second(s)`);
   const allFileToDel = gatherPath();
-  timeroutTimer = setTimeout(async () => {
+
+  timeroutTimer = scheduleTimeout(async () => {
     await deleteFile(allFileToDel);
     onClickBtnReset();
-  }, delayTime * 1000);
+  }, delayTime * SECOND);
 }
 
 async function onClickBtnStart() {

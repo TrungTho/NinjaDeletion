@@ -6,7 +6,7 @@ function stopInterval(intervalName) {
   clearInterval(intervalName);
 }
 
-async function scheduleTimeout(f, delayTime) {
+async function scheduleTimeout(f, delayTime = 1000) {
   return setTimeout(() => {
     f();
   }, delayTime);

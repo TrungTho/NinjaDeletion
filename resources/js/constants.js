@@ -3,6 +3,6 @@ const ITEM_TYPE = {
   FOLDER: "2",
 };
 
-const SECOND = 1;
+const SECOND = 1000;
 
 export { ITEM_TYPE, SECOND };
