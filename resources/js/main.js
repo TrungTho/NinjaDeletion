@@ -5,7 +5,20 @@ import {
   createItemInList,
   countItemInList,
   getButtonInItem,
+  updateTimer,
+  resetUI,
+  disableStartComponent,
+  enableStartComponent,
 } from "./view.js";
+
+import {
+  startInteval,
+  stopInterval,
+  stopScheduleTimeout,
+} from "./schedule.helper.js";
+import { SECOND } from "./constants.js";
+
+window.timerVal = 0;
 
 async function setTray() {
   if (NL_MODE != "window") {
@@ -58,16 +71,24 @@ Neutralino.init();
 Neutralino.events.on("trayMenuItemClicked", onTrayMenuItemClicked);
 Neutralino.events.on("windowClose", onWindowClose);
 
-document.getElementById("btnReset").addEventListener("click", onClickBtnReset);
-document
-  .getElementById("btnChoose")
-  .addEventListener("click", onClickBtnChoose);
-document
-  .getElementById("btnChooseFolder")
-  .addEventListener("click", onClickBtnChooseFolder);
-document.getElementById("btnStart").addEventListener("click", onClickBtnStart);
-document.getElementById("btnStop").addEventListener("click", onClickBtnStop);
-document.getElementById("btnHide").addEventListener("click", onClickBtnHide);
+function initButtonEvent() {
+  document
+    .getElementById("btnReset")
+    .addEventListener("click", onClickBtnReset);
+  document
+    .getElementById("btnChoose")
+    .addEventListener("click", onClickBtnChoose);
+  document
+    .getElementById("btnChooseFolder")
+    .addEventListener("click", onClickBtnChooseFolder);
+  document
+    .getElementById("btnStart")
+    .addEventListener("click", onClickBtnStart);
+  document.getElementById("btnStop").addEventListener("click", onClickBtnStop);
+  document.getElementById("btnHide").addEventListener("click", onClickBtnHide);
+  enableStartComponent();
+}
+initButtonEvent();
 
 if (NL_OS != "Darwin") {
   // TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
@@ -75,8 +96,9 @@ if (NL_OS != "Darwin") {
 }
 
 function onClickBtnReset() {
+  onClickBtnStop();
   console.debug("btnReset clicked");
-  getListElement().innerHTML = "";
+  resetUI();
 }
 
 function addToList(elements) {
@@ -142,16 +164,25 @@ async function onClickBtnChooseFolder() {
   addToList(entry);
 }
 
+let intervalTimer;
+let timeroutTimer;
+
 function startCountDown() {
+  disableStartComponent(); //disable btnStart & delay time input
   const delayTimeStr = getTimerInput().value;
   let delayTime = 0;
   if (!isNaN(delayTimeStr)) {
     delayTime = parseInt(delayTimeStr) || 0; //|| 0 is for "" because !isNaN("") = true
   }
 
+  //display count down timer
+  window.timerVal = delayTime - 1;
+  intervalTimer = startInteval(updateTimer, SECOND * 1000);
+
+  //shedule time to call func delete files
   console.debug(`btnStart clicked! ${delayTime} second(s)`);
   const allFileToDel = gatherPath();
-  setTimeout(async () => {
+  timeroutTimer = setTimeout(async () => {
     await deleteFile(allFileToDel);
     onClickBtnReset();
   }, delayTime * 1000);
@@ -175,6 +206,11 @@ async function onClickBtnStart() {
 }
 async function onClickBtnStop() {
   console.debug("btnStop clicked");
+  stopInterval(intervalTimer);
+  stopScheduleTimeout(timeroutTimer);
+  window.timerVal = 0;
+  updateTimer();
+  enableStartComponent();
 }
 
 async function onClickBtnHide() {

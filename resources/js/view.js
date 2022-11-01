@@ -37,10 +37,43 @@ function getButtonInItem(item) {
   return item.querySelector("button");
 }
 
+function updateTimer() {
+  console.debug("tick, time left: ", window.timerVal);
+
+  if (isNaN(window.timerVal)) return;
+  if (window.timerVal < 0) return;
+
+  const p = document.getElementById("displayTimer");
+  p.innerText = window.timerVal;
+  window.timerVal--;
+}
+
+function disableStartComponent() {
+  document.getElementById("btnStart").disabled = true;
+  document.getElementById("inpDelayTime").disabled = true;
+  document.getElementById("btnStop").disabled = false;
+}
+
+function enableStartComponent() {
+  document.getElementById("btnStart").disabled = false;
+  document.getElementById("inpDelayTime").disabled = false;
+  document.getElementById("btnStop").disabled = true;
+}
+
+function resetUI() {
+  getListElement().innerHTML = "";
+  document.getElementById("inpDelayTime").value = "";
+  enableStartComponent();
+}
+
 export {
   getListElement,
   getTimerInput,
   createItemInList,
   countItemInList,
   getButtonInItem,
+  updateTimer,
+  resetUI,
+  disableStartComponent,
+  enableStartComponent,
 };

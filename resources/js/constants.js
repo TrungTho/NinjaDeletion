@@ -3,4 +3,6 @@ const ITEM_TYPE = {
   FOLDER: "2",
 };
 
-export { ITEM_TYPE };
+const SECOND = 1;
+
+export { ITEM_TYPE, SECOND };
