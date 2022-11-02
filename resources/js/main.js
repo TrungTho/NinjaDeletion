@@ -9,6 +9,7 @@ import {
   resetUI,
   disableStartComponent,
   enableStartComponent,
+  isCloseWhenFinish,
 } from "./view.js";
 
 import {
@@ -185,9 +186,16 @@ function startCountDown() {
   const allFileToDel = gatherPath();
 
   timeroutTimer = scheduleTimeout(async () => {
-    await deleteFile(allFileToDel);
-    onClickBtnReset();
+    processDeletion(allFileToDel);
   }, delayTime * SECOND);
+}
+
+async function processDeletion(allFileToDel) {
+  await deleteFile(allFileToDel);
+  onClickBtnReset();
+  if (isCloseWhenFinish() == true) {
+    Neutralino.app.exit();
+  }
 }
 
 async function onClickBtnStart() {

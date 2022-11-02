@@ -66,6 +66,10 @@ function resetUI() {
   enableStartComponent();
 }
 
+function isCloseWhenFinish() {
+  return document.getElementById("checkFinishClose").checked;
+}
+
 export {
   getListElement,
   getTimerInput,
@@ -76,4 +80,5 @@ export {
   resetUI,
   disableStartComponent,
   enableStartComponent,
+  isCloseWhenFinish,
 };
