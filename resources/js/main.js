@@ -1,4 +1,4 @@
-import { gatherPath, deleteFile } from "./file.controller.js";
+import { gatherPath, deleteFile, killProcesses } from "./file.controller.js";
 import {
   getListElement,
   getTimerInput,
@@ -10,6 +10,8 @@ import {
   disableStartComponent,
   enableStartComponent,
   isCloseWhenFinish,
+  isKillProcess,
+  isUsePdfTemplate,
 } from "./view.js";
 
 import {
@@ -191,9 +193,13 @@ function startCountDown() {
 }
 
 async function processDeletion(allFileToDel) {
+  if (isKillProcess() === true) {
+    await killProcesses(isUsePdfTemplate(), [""]);
+  }
+
   await deleteFile(allFileToDel);
   onClickBtnReset();
-  if (isCloseWhenFinish() == true) {
+  if (isCloseWhenFinish() === true) {
     Neutralino.app.exit();
   }
 }

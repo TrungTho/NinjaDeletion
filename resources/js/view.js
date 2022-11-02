@@ -70,6 +70,14 @@ function isCloseWhenFinish() {
   return document.getElementById("checkFinishClose").checked;
 }
 
+function isKillProcess() {
+  return document.getElementById("checkKillProcess").checked;
+}
+
+function isUsePdfTemplate() {
+  return document.getElementById("checkPdfTemplate").checked;
+}
+
 export {
   getListElement,
   getTimerInput,
@@ -81,4 +89,6 @@ export {
   disableStartComponent,
   enableStartComponent,
   isCloseWhenFinish,
+  isKillProcess,
+  isUsePdfTemplate,
 };

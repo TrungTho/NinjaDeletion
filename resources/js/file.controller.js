@@ -37,5 +37,27 @@ function gatherPath() {
 
   return files;
 }
+/**
+ * @param  {Boolean} isUseTemplate
+ * @param  {Array.<String>} customProcesses
+ */
+async function killProcesses(isUseTemplate, customProcesses) {
+  console.debug("start to kill processes", isUseTemplate, customProcesses);
 
-export { deleteFile, gatherPath };
+  let processesToKill = customProcesses || [];
+  if (isUseTemplate === true) {
+    processesToKill = customProcesses.concat(NL_PDF_APPS);
+  }
+
+  for (const process of processesToKill) {
+    try {
+      const info = await Neutralino.os.execCommand(`taskkill /IM ${process}`, {
+        // background: true,
+      });
+      console.debug("kill process info: ", process, info);
+    } catch (e) {
+      console.error("error when kill process ", process, e);
+    }
+  }
+}
+export { deleteFile, gatherPath, killProcesses };
