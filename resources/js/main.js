@@ -21,6 +21,7 @@ import {
   stopScheduleTimeout,
 } from "./schedule.helper.js";
 import { SECOND } from "./constants.js";
+import { callAPI } from "./api.helper.js";
 
 window.timerVal = 0;
 
@@ -141,6 +142,9 @@ function addToList(elements) {
 {
   addToList(["hehe", "hoho", "huhu"]);
 }
+
+const resp = await callAPI({ endpoint: "http://date.jsontest.com/" });
+console.debug("resp: ", resp);
 
 async function onClickBtnChoose() {
   console.debug("btnChoose clicked");
