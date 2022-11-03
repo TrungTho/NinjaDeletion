@@ -44,7 +44,7 @@
       "resizable": true,
       "exitProcessOnClose": false,
       "globalVariables": {
-        "PDF_APPS": ["foxitreader*", "pdf*", "acrobat*"]
+        "PDF_APPS": ["foxitreader*", "pdf*", "acrobat*", "javelin*"]
       }
     },
     "browser": {
