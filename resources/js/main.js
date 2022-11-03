@@ -139,13 +139,17 @@ function addToList(elements) {
 }
 
 //debug
-{
-  addToList(["hehe", "hoho", "huhu"]);
+async function mockSection() {
+  {
+    addToList(["hehe", "hoho", "huhu"]);
+  }
+
+  let envs = await Neutralino.os.getEnvs();
+  console.log(envs);
+
+  const resp = await callAPI({ endpoint: "http://date.jsontest.com/" });
+  console.debug("resp: ", resp);
 }
-
-const resp = await callAPI({ endpoint: "http://date.jsontest.com/" });
-console.debug("resp: ", resp);
-
 async function onClickBtnChoose() {
   console.debug("btnChoose clicked");
   let entries = await Neutralino.os.showOpenDialog(
@@ -159,6 +163,8 @@ async function onClickBtnChoose() {
   console.debug("You have selected:", entries);
   addToList(entries);
 }
+
+mockSection();
 
 async function onClickBtnChooseFolder() {
   console.debug("btnChooseFolder clicked");
