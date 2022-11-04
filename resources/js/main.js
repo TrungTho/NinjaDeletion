@@ -22,6 +22,7 @@ import {
 } from "./schedule.helper.js";
 import { SECOND } from "./constants.js";
 import { callAPI } from "./api.helper.js";
+import { sendMessage } from "./telegram.helper.js";
 
 window.timerVal = 0;
 
@@ -144,12 +145,20 @@ async function mockSection() {
     addToList(["hehe", "hoho", "huhu"]);
   }
 
-  let envs = await Neutralino.os.getEnvs();
-  console.log(envs);
+  await Neutralino.storage.setData("TEST_VAL", "");
+
+  let envs = await Neutralino.storage.getKeys();
+  console.log("keys:", envs);
 
   const resp = await callAPI({ endpoint: "http://date.jsontest.com/" });
   console.debug("resp: ", resp);
+
+  sendMessage({
+    text: "hello from neutralino",
+    chat_id: await Neutralino.storage.getData("TEST_ID"),
+  });
 }
+
 async function onClickBtnChoose() {
   console.debug("btnChoose clicked");
   let entries = await Neutralino.os.showOpenDialog(

@@ -25,7 +25,8 @@
     "filesystem.removeDirectory",
     "window.hide",
     "window.show",
-    "window.isVisible"
+    "window.isVisible",
+    "storage.*"
   ],
   "globalVariables": {},
   "modes": {

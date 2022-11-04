@@ -3,6 +3,7 @@
  * @type {object}
  * @property {string} endpoint - api's endpoint
  * @property {string} method - RESTful's methods: GET, POST, PUT, PATCH, DELETE.
+ * @property {object} data - request's body in JSON format
  */
 
 /**
@@ -11,6 +12,8 @@
 async function callAPI(params) {
   params.endpoint = params.endpoint || "GET";
   const resp = await fetch(params.endpoint, {
+    credentials: "same-origin",
+    referrerPolicy: "origin-when-cross-origin",
     method: params.method,
   })
     .then(function (response) {
