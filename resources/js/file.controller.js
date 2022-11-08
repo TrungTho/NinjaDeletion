@@ -121,18 +121,35 @@ async function syncResultLogs(stats) {
  * @return {string} logs - final content to send via telegram
  */
 function buildLogContent(stats) {
-  const logs = ` * Total files: ${stats.detail.length}  
-  * Success: ${stats.detail.length - stats.failedLogs.length}  
+  let formatedDetail = "";
+  let formatedFailed = "";
+
+  for (let item of stats.detail) {
+    formatedDetail = formatedDetail + JSON.stringify(item) + "\n";
+  }
+
+  for (let item of stats.failedLogs) {
+    formatedFailed = formatedFailed + JSON.stringify(item) + "\n";
+  }
+
+  const logs = `
+  <b>Time:</b> ${new Date()}  
+  <b>Total files:</b> ${stats.detail.length}  
+  <b>Success:</b> ${stats.detail.length - stats.failedLogs.length}  
 
   ---
 
-  * Details: 
-  ${JSON.stringify(stats.detail)}
+  <b>Details:</b> 
+  ${formatedDetail}
 
   ---
 
-  * Failed logs: 
-  ${JSON.stringify(stats.failedLogs)}`;
+  <b>Failed logs:</b>
+  ${formatedFailed}
+  `;
+
+  console.debug("formated logs:", logs);
+
   return logs;
 }
 
