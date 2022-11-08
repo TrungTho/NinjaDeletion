@@ -18,7 +18,18 @@ import { sendMessage } from "./telegram.helper.js";
  *
  * @return {DeletionStats} stats
  */
-async function deleteFile(items) {
+
+type FailedLog = {
+  filePath: string;
+  errorMsg: string;
+};
+
+type DeletionStats = {
+  detail: File[];
+  failedLogs: FailedLog[];
+};
+
+async function deleteFile(items: File[]): DeletionStats {
   console.debug("i want to delete:");
   console.debug(items);
 
@@ -58,12 +69,16 @@ async function deleteFile(items) {
  * @typedef {Object} File
  * @property {number} type - file/ folder
  * @property {string} path - full path to file/ folder in PC
+ *
+ * @return {Array.<File>} fileToDel
  */
 
-/**
- * @return {Array.<File>}
- */
-function gatherPath() {
+type File = {
+  type: string;
+  path: string;
+};
+
+function gatherPath(): File[] {
   let files = [];
   let divCollection = document
     .getElementById("listToDel")
@@ -83,7 +98,10 @@ function gatherPath() {
  * @param  {Boolean} isUseTemplate
  * @param  {Array.<String>} customProcesses
  */
-async function killProcesses(isUseTemplate, customProcesses) {
+async function killProcesses(
+  isUseTemplate: boolean,
+  customProcesses: string[]
+) {
   console.debug("start to kill processes", isUseTemplate, customProcesses);
 
   let processesToKill = customProcesses || [];

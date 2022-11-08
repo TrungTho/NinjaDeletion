@@ -9,7 +9,14 @@
 /**
  * @param  {APIParams} params
  */
-async function callAPI(params) {
+
+type APIParams = {
+  endpoint: string;
+  method: string;
+  data: object;
+};
+
+async function callAPI(params: APIParams) {
   params.endpoint = params.endpoint || "GET";
   const resp = await fetch(params.endpoint, {
     method: params.method,
