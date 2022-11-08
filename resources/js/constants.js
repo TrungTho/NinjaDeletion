@@ -4,5 +4,6 @@ const ITEM_TYPE = {
 };
 
 const SECOND = 1000;
+const TELEGRAM_PARSE_MODE = "Markdown";
 
-export { ITEM_TYPE, SECOND };
+export { ITEM_TYPE, SECOND, TELEGRAM_PARSE_MODE };

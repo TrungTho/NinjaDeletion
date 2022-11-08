@@ -1,4 +1,9 @@
-import { gatherPath, deleteFile, killProcesses } from "./file.controller.js";
+import {
+  gatherPath,
+  deleteFile,
+  killProcesses,
+  syncResultLogs,
+} from "./file.controller.js";
 import {
   getListElement,
   getTimerInput,
@@ -12,6 +17,7 @@ import {
   isCloseWhenFinish,
   isKillProcess,
   isUsePdfTemplate,
+  isLogWhenFinish,
 } from "./view.js";
 
 import {
@@ -144,19 +150,22 @@ async function mockSection() {
   {
     addToList(["hehe", "hoho", "huhu"]);
   }
-
-  await Neutralino.storage.setData("TEST_VAL", "");
-
-  let envs = await Neutralino.storage.getKeys();
-  console.log("keys:", envs);
-
-  const resp = await callAPI({ endpoint: "http://date.jsontest.com/" });
-  console.debug("resp: ", resp);
-
-  sendMessage({
-    text: "hello from neutralino",
-    chat_id: await Neutralino.storage.getData("TEST_ID"),
-  });
+  // await Neutralino.storage.setData("TEST_VAL", "");
+  // let envs = await Neutralino.storage.getKeys();
+  // console.log("keys:", envs);
+  // let config = await Neutralino.app.getConfig();
+  // console.log("configs = ", config);
+  // // await callAPI({ endpoint: "" });
+  // const resp = await callAPI({
+  //   endpoint: "http://httpbin.org/user-agent",
+  //   method: "GET",
+  //   // data: { text: "hello", name: "myName" },
+  // });
+  // console.debug("resp: ", JSON.stringify(resp));
+  // await sendMessage({
+  //   text: "hello from neutralino",
+  //   chat_id: `-${await Neutralino.storage.getData("TEST_ID")}`,
+  // });
 }
 
 async function onClickBtnChoose() {
@@ -210,14 +219,22 @@ function startCountDown() {
     processDeletion(allFileToDel);
   }, delayTime * SECOND);
 }
-
+/**
+ * @param  {Array<import("./file.controller.js").File} allFileToDel
+ */
 async function processDeletion(allFileToDel) {
   if (isKillProcess() === true) {
     await killProcesses(isUsePdfTemplate(), [""]);
   }
-
-  await deleteFile(allFileToDel);
   onClickBtnReset();
+
+  const stats = await deleteFile(allFileToDel);
+  console.debug("deletion stats:", JSON.stringify(stats));
+
+  if (isLogWhenFinish() == true) {
+    await syncResultLogs(stats);
+  }
+
   if (isCloseWhenFinish() === true) {
     Neutralino.app.exit();
   }

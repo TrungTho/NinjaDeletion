@@ -12,9 +12,11 @@
 async function callAPI(params) {
   params.endpoint = params.endpoint || "GET";
   const resp = await fetch(params.endpoint, {
-    credentials: "same-origin",
-    referrerPolicy: "origin-when-cross-origin",
     method: params.method,
+    body: JSON.stringify(params.data),
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
     .then(function (response) {
       // The API call was successful!

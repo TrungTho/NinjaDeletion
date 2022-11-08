@@ -7,19 +7,31 @@ import { callAPI } from "./api.helper.js";
  * @property {string} method - RESTful's methods: GET, POST, PUT, PATCH, DELETE.
  * @property {object} data - request's body in JSON format
  */
+
 /**
- * @param  {object} body
+ * @typedef TelegramSendMessageBody
+ * @type {object}
+ * @property {string} chat_id - (required) id of chat box
+ * @property {string} text - (required) message to send
+ * @property {string} parse_mode - NULL/HTML/Markdown
+ * @property {boolean} disable_web_page_preview - request's body in JSON format
+ * @property {boolean} disable_notification - request's body in JSON format
+ * @property {number} reply_to_message_id - If the message is a reply, ID of the original message
+ * @property {object} reply_markup - Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+ */
+
+/**
+ * @param  {TelegramSendMessageBody} body
  */
 
 async function sendMessage(body) {
   const token = await Neutralino.storage.getData("TEST_T");
   const apiParams = {
     method: "POST",
-    endpoint: `
-    https://api.telegram.org/bot${token}/sendMessage`,
+    endpoint: `https://api.telegram.org/bot${token}/sendMessage`,
     data: body,
   };
-  callAPI(apiParams);
+  await callAPI(apiParams);
 }
 
 export { sendMessage };

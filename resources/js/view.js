@@ -78,6 +78,10 @@ function isUsePdfTemplate() {
   return document.getElementById("checkPdfTemplate").checked;
 }
 
+function isLogWhenFinish() {
+  return document.getElementById("checkLogResult").checked;
+}
+
 export {
   getListElement,
   getTimerInput,
@@ -91,4 +95,5 @@ export {
   isCloseWhenFinish,
   isKillProcess,
   isUsePdfTemplate,
+  isLogWhenFinish,
 };

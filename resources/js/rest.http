@@ -10,3 +10,4 @@ Content-Type: application/json
     "chat_id": "{{$dotenv CHAT_ID}}",
     "parse_mode":"HTML"
 }
+
