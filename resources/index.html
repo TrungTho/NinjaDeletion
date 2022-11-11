@@ -5,50 +5,96 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="./css/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>
-  <div>
-    <h1>files:
-    </h1>
-    <ul id="listToDel">
+  <div class="wrapper">
+    <header class="header">
+      <h1 class="main__title">Ninja Deletion App </h1>
+      <img src="./icons/ninjaIcon.png" alt="">
 
-    </ul>
+    </header>
+    <hr>
+    <div class="main">
+      <div class="main">
+        <div class="main__buttons">
+          <div class="main__buttons--choosing">
+            <button id="btnChoose">
+              <div class="circle-animation"></div>
+              <p>Choose files</p>
+            </button>
+            <button id="btnChooseFolder">
+              <div class="circle-animation"></div>
+              <p> Choose folder
+              </p>
+            </button>
+          </div>
+          <button id="btnReset">Reset</button>
+
+        </div>
+        <ul class="main__list" id="listToDel">
+          <div class="main__item main__item--file">
+            <div class="main__item-left">
+              <button class="main__item-btn-remove icon-button">
+                <i class="fa-regular fa-trash-can "></i> </button>
+              <p class="main__item-file-path">fauksefbawak</p>
+            </div>
+            <p class="main__item-type" id="itemType">file</p>
+          </div>
+          <div class="main__item main__item--folder">
+            <div class="main__item-left">
+              <button class="main__item-btn-remove icon-button">
+                <i class="fa-regular fa-trash-can"></i> </button>
+              <p class="main__item-file-path">fauksefbawak</p>
+            </div>
+            <p class="main__item-type" id="itemType">file</p>
+          </div>
+        </ul>
+
+        <div class="main__timer">
+          <input type="number" min="0" name="inpDelayTime" id="inpDelayTime" class="main__timer-input" placeholder="0s"
+            size="5">
+          <button id="btnStart" class="main__timer-button icon-button">
+            <i class="fa-regular fa-circle-play fa-3x"></i> </button>
+          <button id="btnStop" class="main__timer-button icon-button">
+            <i class="fa-regular fa-circle-stop fa-3x"></i>
+          </button>
+          <!-- <p id="displayTimer">00:00</p> -->
+        </div>
+      </div>
+      <div>
+      </div>
+    </div>
+    <hr>
+    <footer class="footer">
+      <div class="footer__option">
+        <input type="checkbox" name="checkFinishClose" id="checkFinishClose">
+        <label for="checkFinishClose">Close when finish?</label>
+      </div>
+      <div class="footer__option">
+        <input type="checkbox" name="checkLogResult" id="checkLogResult" checked="true">
+        <label for="checkLogResult">Sync log?</label>
+      </div>
+      <div class="footer__option">
+        <input type="checkbox" name="checkKillProcess" id="checkKillProcess" checked="true">
+        <label for="checkKillProcess">Kill process?</label>
+      </div>
+      <div class="footer__option">
+        <input type="checkbox" name="checkPdfTemplate" id="checkPdfTemplate" checked="true">
+        <label for="checkPdfTemplate" title="Use default template, we have acrobat, foxitreader, javelin">Use
+          template?</label>
+      </div>
+      <input type="text" name="inpProcesses" id="inpProcesses" placeholder="More processes separate by ," alt="hellpo">
+      <button id="btnHide">
+        <i class="fa-solid fa-eye-slash"></i>
+      </button>
+    </footer>
+    <script src="js/neutralino.js"></script>
+    <script src="js/main.js" type="module"></script>
   </div>
-  <hr>
-  <div>
-    <button id="btnReset">Reset</button>
-    <!-- <button id=" btnAdd">Add more</button> -->
-    <button id="btnChoose">Choose files</button>
-    <button id="btnChooseFolder">Choose folder</button>
-    <hr>
-    <input type="number" min="0" name="inpDelayTime" id="inpDelayTime" placeholder="0s">
-    <button id="btnStart">Start</button>
-    <button id="btnStop">Stop</button>
-    <p id="displayTimer">00:00</p>
-    <hr>
-    <hr>
-    <input type="checkbox" name="checkFinishClose" id="checkFinishClose">
-    <label for="checkFinishClose">Close when finish?</label>
-    <!-- <hr>
-    <input type="checkbox" name="checkUninstall" id="checkUninstall">
-    <label for="checkUninstall">Uninstall app when finish?</label> -->
-    <hr>
-    <input type="checkbox" name="checkKillProcess" id="checkKillProcess" checked="true">
-    <label for="checkKillProcess">Kill process before deletion?</label>
-    <input type="checkbox" name="checkPdfTemplate" id="checkPdfTemplate" checked="true">
-    <label for="checkPdfTemplate">Use template</label>
-    <br>
-    <input type="text" name="inpProcesses" id="inpProcesses" placeholder="More process to kill, separate by ,"
-      style='width:100%'>
-    <hr>
-    <input type="checkbox" name="checkLogResult" id="checkLogResult" checked="true">
-    <label for="checkLogResult">Send log when finish</label>
-    <hr>
-    <button id="btnHide">Hide to tray icon</button>
-  </div>
-  <script src="js/neutralino.js"></script>
-  <script src="js/main.js" type="module"></script>
 </body>
 
 </html>
