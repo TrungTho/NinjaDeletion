@@ -33,10 +33,10 @@
   "modes": {
     "window": {
       "title": "ninja-deletion",
-      "width": 500,
-      "height": 400,
-      "minWidth": 400,
-      "minHeight": 200,
+      "width": 650,
+      "height": 500,
+      "minWidth": 600,
+      "minHeight": 500,
       "fullScreen": false,
       "alwaysOnTop": false,
       "icon": "/resources/icons/appIcon.png",

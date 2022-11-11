@@ -12,20 +12,36 @@ function getTimerInput() {
 //create an item in list
 function createItemInList(pathVal, itemIdx, isFile) {
   const item = document.createElement("div");
-  const btn = document.createElement("button");
+  const leftSection = document.createElement("div");
+  leftSection.classList.add("main__item-left");
+  const btnRemove = document.createElement("button");
+  btnRemove.classList.add("main__item-btn-remove");
+  btnRemove.innerHTML = `
+  <i class="fa-regular fa-trash-can"></i> 
+  `;
+  const pFileName = document.createElement("p");
+  pFileName.classList.add("main__item-file-path");
+  pFileName.innerText = pathVal;
+  const pFileType = document.createElement("p");
+  pFileType.classList.add("main__item-type");
+  pFileType.innerText = isFile === true ? "FILE" : "FOLDER";
+
   const divId = `item-${itemIdx}`;
 
-  // btn.textContent = "-";
-
-  item.appendChild(btn);
-  item.appendChild(document.createTextNode(pathVal));
+  leftSection.appendChild(btnRemove);
+  leftSection.appendChild(pFileName);
+  item.appendChild(leftSection);
+  item.appendChild(pFileType);
 
   item.setAttribute("id", divId);
   item.setAttribute(
     "item-type",
     isFile === true ? ITEM_TYPE.FILE : ITEM_TYPE.FOLDER
   );
-
+  item.classList.add(
+    "main__item",
+    isFile === true ? "main__item--file" : "main__item--folder"
+  );
   return item;
 }
 
@@ -43,8 +59,8 @@ function updateTimer() {
   if (isNaN(window.timerVal)) return;
   if (window.timerVal < 0) return;
 
-  const p = document.getElementById("displayTimer");
-  p.innerText = window.timerVal;
+  const p = document.getElementById("inpDelayTime");
+  p.value = window.timerVal;
   window.timerVal--;
 }
 
@@ -52,12 +68,16 @@ function disableStartComponent() {
   document.getElementById("btnStart").disabled = true;
   document.getElementById("inpDelayTime").disabled = true;
   document.getElementById("btnStop").disabled = false;
+  document.getElementById("btnStart").classList.add("button--hide");
+  document.getElementById("btnStop").classList.remove("button--hide");
 }
 
 function enableStartComponent() {
   document.getElementById("btnStart").disabled = false;
   document.getElementById("inpDelayTime").disabled = false;
   document.getElementById("btnStop").disabled = true;
+  document.getElementById("btnStop").classList.add("button--hide");
+  document.getElementById("btnStart").classList.remove("button--hide");
 }
 
 function resetUI() {

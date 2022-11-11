@@ -1,0 +1,169 @@
+:root {
+  --separate-color: #d5e1df;
+  --main-padding: 15px;
+}
+
+* {
+  box-sizing: inherit;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+html {
+  font-size: 100%;
+}
+
+hr {
+  margin: 5px 0px 0px 0px;
+}
+
+p {
+  margin: 0;
+}
+
+::placeholder {
+  font-size: 12px;
+}
+
+button {
+  background: none;
+  border: solid 0.5px rgb(0, 0, 0);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* css header section */
+.header {
+  min-height: 35px;
+  display: flex;
+  align-items: center;
+  margin: 0px var(--main-padding);
+}
+
+.header > img {
+  margin-left: 10px;
+}
+
+/* css main section  */
+.main {
+  /* background-color: aquamarine; */
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main__buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px var(--main-padding);
+  margin: 20px 0px 10px 0px;
+}
+
+.main__buttons button {
+  position: relative;
+  overflow: hidden;
+}
+
+.main__buttons button:hover {
+  background-color: var(--separate-color);
+}
+
+.main__list {
+  min-height: 200px;
+  background-color: white;
+  margin: 0px var(--main-padding);
+  padding: 0px;
+  border: dashed 1px var(--separate-color);
+}
+
+.main__item {
+  background-color: aqua;
+  display: flex;
+  justify-content: space-between;
+  min-height: 30px;
+  height: 30px;
+  align-items: center;
+  margin: 0px 5px;
+  border-bottom: dashed 1px rgb(199, 198, 198);
+}
+
+.main__item--file {
+  background-color: #ccffe7;
+}
+.main__item--folder {
+  background-color: #ffd3d3;
+}
+
+.main__item-left {
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main__item-left > p {
+  font-size: small;
+  /* background-color: red; */
+  overflow: hidden;
+  max-width: 500px;
+}
+
+.main__item-left > button {
+  border: none;
+}
+
+.main__item-type {
+  margin-right: 10px;
+  font-size: small;
+}
+
+button + p {
+  margin-left: 10px;
+}
+
+.main__timer {
+  align-self: center;
+  margin-top: 10px;
+  /* background-color: red; */
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.main__timer-button {
+  width: 34px;
+  height: 40px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.main__timer-button:hover {
+  background-color: var(--separate-color);
+}
+
+.main__timer-input {
+  width: 35px;
+  border: none;
+  border-bottom: dotted 1px gray;
+}
+
+.button--hide {
+  display: none;
+}
+
+/* css footer section */
+.footer {
+  background-color: rgb(241, 241, 241);
+  min-height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer > div > label {
+  font-size: 0.8rem;
+}
