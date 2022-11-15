@@ -42,6 +42,29 @@ button {
 
 .header > img {
   margin-left: 10px;
+  /* animation: anim-ninja-run 0.75s infinite ease-in-out; */
+}
+
+@keyframes anim-ninja-run {
+  0% {
+    margin-left: 10px;
+    opacity: 0.2;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    margin-left: 30px;
+    opacity: 0.2;
+  }
+  75% {
+    margin-left: 60px;
+    opacity: 1;
+  }
+  100% {
+    margin-left: 90px;
+    opacity: 0.2;
+  }
 }
 
 /* css main section  */
@@ -54,18 +77,60 @@ button {
 
 .main__buttons {
   display: flex;
-  justify-content: space-between;
   padding: 0px var(--main-padding);
   margin: 20px 0px 10px 0px;
 }
 
+.main__buttons button:last-child {
+  margin-left: auto;
+}
+
 .main__buttons button {
+  height: 30px;
+  min-width: 90px;
+  margin-right: 10px;
   position: relative;
   overflow: hidden;
 }
 
-.main__buttons button:hover {
-  background-color: var(--separate-color);
+.main__buttons button:before {
+  content: "";
+  background-color: red;
+  min-width: 20px;
+  min-height: 20px;
+  opacity: 1;
+}
+
+.button__circle {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background: rgb(226, 225, 225);
+  background: linear-gradient(
+    90deg,
+    rgba(226, 225, 225, 1) 0%,
+    rgba(203, 203, 203, 1) 24%,
+    rgba(166, 166, 166, 1) 56%
+  );
+  border-radius: 100%;
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+  z-index: -1;
+  opacity: 0;
+  transition: all 0.4s ease-out;
+}
+
+.main__buttons button:hover .button__circle {
+  width: 200px;
+  height: 200px;
+  opacity: 1;
+}
+
+.main__buttons button:hover .main__button-name {
+  color: white;
+  transition: all 0.4s ease;
 }
 
 .main__list {
