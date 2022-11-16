@@ -73,22 +73,24 @@
     <footer class="footer">
       <div class="footer__option">
         <input type="checkbox" name="checkFinishClose" id="checkFinishClose">
-        <label for="checkFinishClose">Close when finish?</label>
+        <label for="checkFinishClose" title="Do you want to close application when finish?">Close when finish?</label>
       </div>
       <div class="footer__option">
         <input type="checkbox" name="checkLogResult" id="checkLogResult" checked="true">
-        <label for="checkLogResult">Sync log?</label>
+        <label for="checkLogResult" title="Do you want to send result logs via telegram?">Sync log?</label>
       </div>
       <div class="footer__option">
         <input type="checkbox" name="checkKillProcess" id="checkKillProcess" checked="true">
-        <label for="checkKillProcess">Kill process?</label>
+        <label for="checkKillProcess" title="Do you want to excec command and kill some processes before deletion?">Kill
+          process?</label>
       </div>
       <div class="footer__option">
         <input type="checkbox" name="checkPdfTemplate" id="checkPdfTemplate" checked="true">
         <label for="checkPdfTemplate" title="Use default template, we have acrobat, foxitreader, javelin">Use
           template?</label>
       </div>
-      <input type="text" name="inpProcesses" id="inpProcesses" placeholder="More processes separate by ," alt="hellpo">
+      <input type="text" title="Input more processes to kill before deletion" name="inpProcesses" id="inpProcesses"
+        placeholder="More processes separate by ,">
       <button id="btnHide">
         <i class="fa-solid fa-eye-slash"></i>
       </button>

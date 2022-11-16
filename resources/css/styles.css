@@ -143,7 +143,7 @@ button {
   background-color: white;
   margin: 0px var(--main-padding);
   padding: 0px;
-  border: dashed 1px var(--separate-color);
+  border: dashed 2px var(--separate-color);
 }
 
 .main__item {
