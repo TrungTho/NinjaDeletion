@@ -1,5 +1,6 @@
 import { ITEM_TYPE, TELEGRAM_PARSE_MODE } from "./constants.js";
 import { sendMessage } from "./telegram.helper.js";
+import { getFilePathFromItem } from "./view.js";
 
 /**
  * @typedef {Object} FailedLog
@@ -72,7 +73,7 @@ function gatherPath() {
   for (let div of divCollection) {
     const item = {
       type: div.getAttribute("item-type"),
-      path: div.innerText,
+      path: getFilePathFromItem(div),
     };
     files.push(item);
   }

@@ -109,6 +109,17 @@ function getBtnStop() {
   return document.getElementById("btnStop");
 }
 
+/**
+ * @param  {HTMLDivElement} item
+ *
+ * @return {string} filepath
+ */
+function getFilePathFromItem(item) {
+  let itemContent = item.innerText;
+
+  return itemContent.substring(0, itemContent.indexOf("\n\n"));
+}
+
 export {
   getListElement,
   getTimerInput,
@@ -125,4 +136,5 @@ export {
   isLogWhenFinish,
   getBtnStart,
   getBtnStop,
+  getFilePathFromItem,
 };
