@@ -18,6 +18,8 @@ import {
   isKillProcess,
   isUsePdfTemplate,
   isLogWhenFinish,
+  getBtnStart,
+  getBtnStop,
 } from "./view.js";
 
 import {
@@ -241,6 +243,7 @@ async function processDeletion(allFileToDel) {
 }
 
 async function onClickBtnStart() {
+  getBtnStart().classList.add("main__timer-button--click");
   if (getListElement().getElementsByTagName("div").length === 0) {
     return;
   }
@@ -257,6 +260,7 @@ async function onClickBtnStart() {
   }
 }
 async function onClickBtnStop() {
+  getBtnStop().classList.add("main__timer-button--click");
   console.debug("btnStop clicked");
   stopInterval(intervalTimer);
   stopScheduleTimeout(timeroutTimer);

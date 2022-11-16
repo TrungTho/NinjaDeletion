@@ -102,6 +102,13 @@ function isLogWhenFinish() {
   return document.getElementById("checkLogResult").checked;
 }
 
+function getBtnStart() {
+  return document.getElementById("btnStart");
+}
+function getBtnStop() {
+  return document.getElementById("btnStop");
+}
+
 export {
   getListElement,
   getTimerInput,
@@ -116,4 +123,6 @@ export {
   isKillProcess,
   isUsePdfTemplate,
   isLogWhenFinish,
+  getBtnStart,
+  getBtnStop,
 };

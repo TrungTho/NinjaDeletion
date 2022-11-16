@@ -1,6 +1,7 @@
 :root {
   --separate-color: #d5e1df;
   --main-padding: 15px;
+  --glow-color: gray;
 }
 
 * {
@@ -105,12 +106,12 @@ button {
   content: "";
   width: 20px;
   height: 20px;
-  background: rgb(226, 225, 225);
-  background: linear-gradient(
-    90deg,
-    rgba(226, 225, 225, 1) 0%,
-    rgba(203, 203, 203, 1) 24%,
-    rgba(166, 166, 166, 1) 56%
+  background: rgb(210, 210, 210);
+  background: radial-gradient(
+    circle,
+    rgba(210, 210, 210, 1) 0%,
+    rgba(203, 203, 203, 1) 35%,
+    rgba(130, 130, 130, 0.9724264705882353) 100%
   );
   border-radius: 100%;
   position: absolute;
@@ -128,9 +129,12 @@ button {
   opacity: 1;
 }
 
+.main__buttons button:hover {
+  border-color: var(--separate-color);
+}
+
 .main__buttons button:hover .main__button-name {
   color: white;
-  transition: all 0.4s ease;
 }
 
 .main__list {
@@ -173,8 +177,30 @@ button {
   max-width: 500px;
 }
 
-.main__item-left > button {
+.main__item-btn-remove {
   border: none;
+  background-color: none;
+}
+
+.main__item-btn-remove:hover {
+  border: none;
+  box-shadow: 0 0 0 1em transparent;
+  animation: pulse 1s, shake-animatino 0.6s infinite linear alternate;
+}
+
+@keyframes shake-animatino {
+  0% {
+    transform: rotate(25deg);
+  }
+  15% {
+    transform: rotate(-25deg);
+  }
+  30% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .main__item-type {
@@ -196,17 +222,76 @@ button + p {
 }
 
 .main__timer-button {
-  width: 34px;
+  width: 29px;
   height: 40px;
   border-radius: 100px;
+  border: solid 1px gray;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 5px;
+  position: relative;
+  color: gray;
+}
+.main__timer-button::before {
+  content: "";
+  position: absolute;
+  /* box-shadow: inset 0 0 0 0 transparent;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%; */
+  border-radius: 100%;
+  background: rgb(210, 210, 210);
+  background: radial-gradient(
+    circle,
+    rgba(210, 210, 210, 1) 0%,
+    rgba(203, 203, 203, 1) 35%,
+    rgba(130, 130, 130, 0.9724264705882353) 100%
+  );
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  transition: all 0.5s;
+  z-index: -1;
 }
 
 .main__timer-button:hover {
-  background-color: var(--separate-color);
+  color: white;
+}
+
+.main__timer-button:hover::before {
+  /* box-shadow: inset 0 0 30px 0px var(--glow-color); */
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.main__timer-button--click {
+  /* background-color: var(--separate-color); */
+  box-shadow: 0 0 0 2em transparent;
+  transition: all 0.2s ease;
+  animation: pulse 1s, gelatine 0.2s ease-in alternate;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--glow-color);
+  }
+}
+@keyframes gelatine {
+  from,
+  to {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+  75% {
+    transform: scale(0.95, 1.05);
+  }
 }
 
 .main__timer-input {
