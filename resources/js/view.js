@@ -1,5 +1,8 @@
 import { ITEM_TYPE } from "./constants.js";
 
+/**
+ * @return {HTMLUListElement} listToDel - the main list that contains files, folders user wants to delete
+ */
 function getListElement() {
   return document.getElementById("listToDel");
 }
@@ -10,6 +13,13 @@ function getTimerInput() {
 }
 
 //create an item in list
+/**
+ * @param  {string} pathVal - absolute path to file/ folder to delete
+ * @param  {number} itemIdx - index of item in list (for deletion)
+ * @param  {boolean} isFile - file / folder
+ *
+ * @return {HTMLDivElement} item - created item to add to list
+ */
 function createItemInList(pathVal, itemIdx, isFile) {
   const item = document.createElement("div");
   const leftSection = document.createElement("div");
@@ -44,15 +54,23 @@ function createItemInList(pathVal, itemIdx, isFile) {
   );
   return item;
 }
-
+/**
+ * @return {number} total - total item in the main list
+ */
 function countItemInList() {
   return getListElement().getElementsByTagName("div").length;
 }
 
+/**
+ * @param  {HTMLDivElement} item - main item in the list
+ * @return  {HTMLButtonElement} button - delete button in an item
+ */
 function getButtonInItem(item) {
   return item.querySelector("button");
 }
-
+/**
+ * function to update count-down timer UI
+ */
 function updateTimer() {
   console.debug("tick, time left: ", window.timerVal);
 
@@ -64,6 +82,9 @@ function updateTimer() {
   window.timerVal--;
 }
 
+/**
+ * function to disable/ hide all start's components
+ */
 function disableStartComponent() {
   document.getElementById("btnStart").disabled = true;
   document.getElementById("inpDelayTime").disabled = true;
@@ -72,6 +93,9 @@ function disableStartComponent() {
   document.getElementById("btnStop").classList.remove("button--hide");
 }
 
+/**
+ * function to disable/ hide all stop's components
+ */
 function enableStartComponent() {
   document.getElementById("btnStart").disabled = false;
   document.getElementById("inpDelayTime").disabled = false;
@@ -80,31 +104,58 @@ function enableStartComponent() {
   document.getElementById("btnStart").classList.remove("button--hide");
 }
 
+/**
+ * function to reset list to empty, reset timer & enable start's components
+ */
 function resetUI() {
   getListElement().innerHTML = "";
   document.getElementById("inpDelayTime").value = "";
   enableStartComponent();
 }
 
+/**
+ * function to check if user wants to close app when deletion finish
+ * @return {boolean} isClose - checkbox value
+ */
 function isCloseWhenFinish() {
   return document.getElementById("checkFinishClose").checked;
 }
 
+/**
+ * function to check if user wants to exec cmd and kills some processes before start the deletion
+ * (there are other apps that prevent os to delete files when still opening (pdf viewer such as foxitreader))
+ * @return {boolean} isKillProcess - checkbox value
+ */
 function isKillProcess() {
   return document.getElementById("checkKillProcess").checked;
 }
 
+/**
+ * function to apply some default templates to kill processes
+ * (for now: foxitreader, javelin, acrobat, pdfviewer)
+ * @return {boolean} isUsingTemplate - checkbox value
+ */
 function isUsePdfTemplate() {
   return document.getElementById("checkPdfTemplate").checked;
 }
 
+/**
+ * function to check if user wants to send result logs after the whole process
+ * @return {boolean} isSyncLog - checkbox value
+ */
 function isLogWhenFinish() {
   return document.getElementById("checkLogResult").checked;
 }
-
+/**
+ * @return {HTMLButtonElement} btnStart - start button in the timer section
+ */
 function getBtnStart() {
   return document.getElementById("btnStart");
 }
+
+/**
+ * @return {HTMLButtonElement} btnStop - stop button in the timer section
+ */
 function getBtnStop() {
   return document.getElementById("btnStop");
 }

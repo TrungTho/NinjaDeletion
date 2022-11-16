@@ -29,8 +29,6 @@ import {
   stopScheduleTimeout,
 } from "./schedule.helper.js";
 import { SECOND } from "./constants.js";
-import { callAPI } from "./api.helper.js";
-import { sendMessage } from "./telegram.helper.js";
 
 window.timerVal = 0;
 
@@ -149,6 +147,7 @@ function addToList(elements) {
 
 //debug
 async function mockSection() {
+  return;
   {
     addToList(["hehe", "hoho", "huhu"]);
   }
@@ -221,8 +220,9 @@ function startCountDown() {
     processDeletion(allFileToDel);
   }, delayTime * SECOND);
 }
+
 /**
- * @param  {Array<import("./file.controller.js").File} allFileToDel
+ * @param  {Array<File} allFileToDel
  */
 async function processDeletion(allFileToDel) {
   if (isKillProcess() === true) {

@@ -138,6 +138,7 @@ button {
 }
 
 .main__list {
+  width: auto;
   min-height: 200px;
   background-color: white;
   margin: 0px var(--main-padding);
