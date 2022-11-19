@@ -171,6 +171,14 @@ function getFilePathFromItem(item) {
   return itemContent.substring(0, itemContent.indexOf("\n\n"));
 }
 
+function getBtnConfigTelegram() {
+  return document.getElementById("btnConfigTelegram");
+}
+
+function toggleTelegramConfigPopup() {
+  document.querySelector(".telegram-section").classList.toggle("hide");
+}
+
 export {
   getListElement,
   getTimerInput,
@@ -188,4 +196,6 @@ export {
   getBtnStart,
   getBtnStop,
   getFilePathFromItem,
+  getBtnConfigTelegram,
+  toggleTelegramConfigPopup,
 };

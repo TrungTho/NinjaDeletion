@@ -26,6 +26,7 @@
     "window.hide",
     "window.show",
     "window.isVisible",
+    "window.*",
     "storage.*",
     "app.*"
   ],

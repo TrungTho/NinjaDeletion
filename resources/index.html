@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Ninja Deletion</title>
   <link rel="stylesheet" href="./css/normalize.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/telegram.style.css">
 </head>
 
 <body>
@@ -15,28 +16,39 @@
     <header class="header">
       <h1 class="main__title">Ninja Deletion App </h1>
       <img src="./icons/ninjaIcon.png" alt="">
+      <i class="fa-solid fa-bars hearder__menu-icon">
+        <div class="header__menu">
+          <div class="header__menu-item" id="btnConfigTelegram">
+            <i class="fa-brands fa-telegram"></i>
+            Telegram token
+          </div>
+          <div class="header__menu-item">
+            <i class="fa-solid fa-circle-info"></i>
+            <a href="https://github.com/TrungTho/NinjaDeletion" target="_blank">About</a>
+          </div>
+        </div>
+      </i>
     </header>
     <hr>
     <div class="main">
-      <div class="main">
-        <div class="main__buttons">
-          <button id="btnChoose">
-            <div class="button__circle"></div>
-            <p class="main__button-name">Choose files</p>
-          </button>
-          <button id="btnChooseFolder">
-            <div class="button__circle"></div>
-            <p class="main__button-name"> Choose folder
-            </p>
-          </button>
-          <button id="btnReset">
-            <div class="button__circle"></div>
-            <p class="main__button-name">Reset</p>
-          </button>
+      <div class="main__buttons">
+        <button id="btnChoose">
+          <div class="button__circle"></div>
+          <p class="main__button-name">Choose files</p>
+        </button>
+        <button id="btnChooseFolder">
+          <div class="button__circle"></div>
+          <p class="main__button-name"> Choose folder
+          </p>
+        </button>
+        <button id="btnReset">
+          <div class="button__circle"></div>
+          <p class="main__button-name">Reset</p>
+        </button>
 
-        </div>
-        <ul class="main__list" id="listToDel">
-          <!-- <div class="main__item main__item--file">
+      </div>
+      <ul class="main__list" id="listToDel">
+        <!-- <div class="main__item main__item--file">
             <div class="main__item-left">
               <button class="main__item-btn-remove icon-button">
                 <i class="fa-regular fa-trash-can "></i> </button>
@@ -52,21 +64,18 @@
             </div>
             <p class="main__item-type" id="itemType">file</p>
           </div> -->
-        </ul>
+      </ul>
 
-        <div class="main__timer">
-          <input type="number" min="0" name="inpDelayTime" id="inpDelayTime" class="main__timer-input" placeholder="0s"
-            size="5">
-          <button id="btnStart" class="main__timer-button icon-button" style="--glow-color:#00FFD1">
-            <i class="fa-regular fa-circle-play fa-3x"></i>
-          </button>
-          <button id="btnStop" class="main__timer-button icon-button" style="--glow-color:#FF1E1E">
-            <i class="fa-regular fa-circle-stop fa-3x"></i>
-          </button>
-          <!-- <p id="displayTimer">00:00</p> -->
-        </div>
-      </div>
-      <div>
+      <div class="main__timer">
+        <input type="number" min="0" name="inpDelayTime" id="inpDelayTime" class="main__timer-input" placeholder="0s"
+          size="5">
+        <button id="btnStart" class="main__timer-button icon-button" style="--glow-color:#00FFD1">
+          <i class="fa-regular fa-circle-play fa-3x"></i>
+        </button>
+        <button id="btnStop" class="main__timer-button icon-button" style="--glow-color:#FF1E1E">
+          <i class="fa-regular fa-circle-stop fa-3x"></i>
+        </button>
+        <!-- <p id="displayTimer">00:00</p> -->
       </div>
     </div>
     <hr>
@@ -97,6 +106,41 @@
     </footer>
     <script src="js/neutralino.js"></script>
     <script src="js/main.js" type="module"></script>
+  </div>
+  <div class="telegram-section hide">
+    <div class="telegram-wrapper">
+      <div class="page">
+        <div class="description">The application will use this information to send logs to telegram chat after the
+          deletion
+          process finish.</div>
+        <div class="field field_v2">
+          <label for="inpBotToken" class="ha-screen-reader">Bot Token</label>
+          <input id="inpBotToken" class="field__input" placeholder="Your Telegram Bot's Token">
+          <span class="field__label-wrap" aria-hidden="true">
+            <span class="field__label">Bot Token</span>
+          </span>
+        </div>
+        <div class="field field_v2">
+          <label for="inpChatId" class="ha-screen-reader">Chat ID</label>
+          <input id="inpChatId" class="field__input" placeholder="e.g. -1134142">
+          <span class="field__label-wrap" aria-hidden="true">
+            <span class="field__label">Chat ID</span>
+          </span>
+        </div>
+      </div>
+      <a class="guide-link" href="https://github.com/TrungTho/NinjaDeletion" target="_blank">Don't know how to get these
+        information?</a>
+      <div class="btn-container">
+        <button class="btn btn-save" id="btnSaveTelegramConfig">
+          <div class="button__circle" style="--glow-color:#00FFD1"></div>
+          Save
+        </button>
+        <button class="btn btn-cancel" id="btnCancelTelegramConfig">
+          <div class="button__circle" style="--glow-color:#FF1E1E"></div>
+          Cancel
+        </button>
+      </div>
+    </div>
   </div>
 </body>
 

@@ -20,6 +20,8 @@ import {
   isLogWhenFinish,
   getBtnStart,
   getBtnStop,
+  getBtnConfigTelegram,
+  toggleTelegramConfigPopup,
 } from "./view.js";
 
 import {
@@ -98,6 +100,10 @@ function initButtonEvent() {
     .addEventListener("click", onClickBtnStart);
   document.getElementById("btnStop").addEventListener("click", onClickBtnStop);
   document.getElementById("btnHide").addEventListener("click", onClickBtnHide);
+  getBtnConfigTelegram().addEventListener("click", onClickBtnConfigTelegram);
+  document
+    .getElementById("btnCancelTelegramConfig")
+    .addEventListener("click", onClickBtnConfigTelegram);
   enableStartComponent();
 }
 initButtonEvent();
@@ -283,4 +289,9 @@ function onClickBtnRemoveItem(itemId) {
   } catch (e) {
     console.debug("failed to remove item from list", e);
   }
+}
+
+async function onClickBtnConfigTelegram() {
+  console.debug("open new window");
+  toggleTelegramConfigPopup();
 }
