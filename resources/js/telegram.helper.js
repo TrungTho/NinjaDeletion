@@ -1,6 +1,13 @@
 import { callAPI } from "./api.helper.js";
 
 /**
+ * @typedef TelegramBotAPIConfig
+ * @type {object}
+ * @property {string} botToken - token of telegram bot
+ * @property {string} chatID - group chat that want to get result logs
+ */
+
+/**
  * @typedef APIParams
  * @type {object}
  * @property {string} endpoint - api's endpoint

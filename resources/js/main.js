@@ -22,6 +22,8 @@ import {
   getBtnStop,
   getBtnConfigTelegram,
   toggleTelegramConfigPopup,
+  getTelegramConfigData,
+  showNotification,
 } from "./view.js";
 
 import {
@@ -30,7 +32,7 @@ import {
   stopInterval,
   stopScheduleTimeout,
 } from "./schedule.helper.js";
-import { SECOND } from "./constants.js";
+import { NOTIFICATION_TYPE, SECOND } from "./constants.js";
 
 window.timerVal = 0;
 
@@ -100,10 +102,17 @@ function initButtonEvent() {
     .addEventListener("click", onClickBtnStart);
   document.getElementById("btnStop").addEventListener("click", onClickBtnStop);
   document.getElementById("btnHide").addEventListener("click", onClickBtnHide);
-  getBtnConfigTelegram().addEventListener("click", onClickBtnConfigTelegram);
+  getBtnConfigTelegram().addEventListener(
+    "click",
+    onClickBtnShowTelegramConfig
+  );
   document
     .getElementById("btnCancelTelegramConfig")
-    .addEventListener("click", onClickBtnConfigTelegram);
+    .addEventListener("click", onClickBtnShowTelegramConfig);
+  document
+    .getElementById("btnTestTelegramAccount")
+    .addEventListener("click", onClickBtnTestTelegram);
+
   enableStartComponent();
 }
 initButtonEvent();
@@ -291,7 +300,15 @@ function onClickBtnRemoveItem(itemId) {
   }
 }
 
-async function onClickBtnConfigTelegram() {
+async function onClickBtnShowTelegramConfig() {
   console.debug("open new window");
   toggleTelegramConfigPopup();
+}
+
+async function onClickBtnTestTelegram() {
+  let userInput = getTelegramConfigData();
+  if (!userInput) {
+    //show error toast
+    showNotification(NOTIFICATION_TYPE.ERROR, "Missing Data");
+  }
 }

@@ -277,7 +277,6 @@ button {
 
 .btn-container button:before {
   content: "";
-  background-color: red;
   min-width: 20px;
   min-height: 20px;
   opacity: 1;
@@ -347,4 +346,48 @@ button {
 .hide {
   visibility: hidden;
   opacity: 0;
+}
+
+#btnTestTelegramAccount:hover::before {
+  display: none;
+}
+
+#btnTestTelegramAccount:hover::after {
+  display: contents;
+}
+
+.btn i {
+  display: none;
+}
+
+.btn:hover p {
+  display: none;
+}
+
+.btn:hover i {
+  display: contents;
+}
+
+.top-noti {
+  position: relative;
+  width: fit-content;
+  top: 0;
+  margin: auto;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: #33343b;
+  padding: 5px 10px 10px 10px;
+  z-index: 900;
+  transition: all 0.4s;
+  border-top: none;
+}
+
+.top-noti--error {
+  background-color: #fcede9;
+  border: solid 1px rgba(255, 0, 0, 0.5);
+}
+
+.top-noti--success {
+  background-color: #e5effa;
+  border: solid 1px rgba(0, 162, 255, 0.5);
 }

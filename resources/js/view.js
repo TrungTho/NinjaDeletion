@@ -1,4 +1,4 @@
-import { ITEM_TYPE } from "./constants.js";
+import { ITEM_TYPE, NOTIFICATION_TYPE } from "./constants.js";
 
 /**
  * @return {HTMLUListElement} listToDel - the main list that contains files, folders user wants to delete
@@ -179,6 +179,54 @@ function toggleTelegramConfigPopup() {
   document.querySelector(".telegram-section").classList.toggle("hide");
 }
 
+/**
+ * @return {undefined|import("./telegram.helper.js").TelegramBotAPIConfig} config - telegram config from user's
+ */
+function getTelegramConfigData() {
+  const res = {
+    botToken: document.getElementById("inpBotToken").value,
+    chatID: document.getElementById("inpChatId").value,
+  };
+
+  if (res.botToken.length * res.chatID.length == 0) {
+    alert("missing data");
+    return undefined;
+  }
+
+  return res;
+}
+/**
+ * @param  {number} type - type of notification, see in contants.js
+ * @param  {string} msg - message to show
+ */
+function showNotification(type, msg) {
+  let valid = false;
+  let removedClass = "";
+  switch (type) {
+    case NOTIFICATION_TYPE.ERROR:
+      document.querySelector(".top-noti-content").innerText = `⚠ ${msg} ⚠`;
+      document.querySelector(".top-noti").classList.add("top-noti--error");
+      removedClass = "top-noti--error";
+      valid = true;
+      break;
+
+    case NOTIFICATION_TYPE.SUCCESS:
+      document.querySelector(".top-noti-content").innerText = `🆗 ${msg} 🆗`;
+      document.querySelector(".top-noti").classList.add("top-noti--success");
+      removedClass = "top-noti--success";
+      valid = true;
+      break;
+  }
+
+  if (valid) {
+    document.querySelector(".top-noti").classList.remove("hide");
+    setTimeout(() => {
+      document.querySelector(".top-noti").classList.add("hide");
+      document.querySelector(".top-noti").classList.remove(removedClass);
+    }, 3000);
+  }
+}
+
 export {
   getListElement,
   getTimerInput,
@@ -198,4 +246,6 @@ export {
   getFilePathFromItem,
   getBtnConfigTelegram,
   toggleTelegramConfigPopup,
+  getTelegramConfigData,
+  showNotification,
 };

@@ -12,6 +12,9 @@
 </head>
 
 <body>
+  <div class="top-noti hide">
+    <div class="top-noti-content">This is an notification</div>
+  </div>
   <div class="wrapper">
     <header class="header">
       <h1 class="main__title">Ninja Deletion App </h1>
@@ -107,7 +110,7 @@
     <script src="js/neutralino.js"></script>
     <script src="js/main.js" type="module"></script>
   </div>
-  <div class="telegram-section hide">
+  <div class="telegram-section">
     <div class="telegram-wrapper">
       <div class="page">
         <div class="description">The application will use this information to send logs to telegram chat after the
@@ -131,13 +134,20 @@
       <a class="guide-link" href="https://github.com/TrungTho/NinjaDeletion" target="_blank">Don't know how to get these
         information?</a>
       <div class="btn-container">
+        <button class="btn btn-test-api" id="btnTestTelegramAccount">
+          <i class="fa-solid fa-paper-plane"></i>
+          <div class="button__circle" style="--glow-color:#229ED9"></div>
+          <p>Test Msg</p>
+        </button>
         <button class="btn btn-save" id="btnSaveTelegramConfig">
+          <i class="fa-solid fa-floppy-disk"></i>
           <div class="button__circle" style="--glow-color:#00FFD1"></div>
-          Save
+          <p>Save</p>
         </button>
         <button class="btn btn-cancel" id="btnCancelTelegramConfig">
+          <i class="fa-solid fa-xmark"></i>
           <div class="button__circle" style="--glow-color:#FF1E1E"></div>
-          Cancel
+          <p>Cancel</p>
         </button>
       </div>
     </div>
