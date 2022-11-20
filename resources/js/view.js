@@ -189,12 +189,20 @@ function getTelegramConfigData() {
   };
 
   if (res.botToken.length * res.chatID.length == 0) {
-    alert("missing data");
+    // alert("missing data");
     return undefined;
   }
 
   return res;
 }
+/**
+ * @param  {import("./telegram.helper.js").TelegramBotAPIConfig} data
+ */
+function fillTelegramConfigData(data) {
+  document.getElementById("inpBotToken").value = data.botToken;
+  document.getElementById("inpChatId").value = data.chatID;
+}
+
 /**
  * @param  {number} type - type of notification, see in contants.js
  * @param  {string} msg - message to show
@@ -219,9 +227,9 @@ function showNotification(type, msg) {
   }
 
   if (valid) {
-    document.querySelector(".top-noti").classList.remove("hide");
+    document.querySelector(".top-noti").classList.remove("top-noti--hide");
     setTimeout(() => {
-      document.querySelector(".top-noti").classList.add("hide");
+      document.querySelector(".top-noti").classList.add("top-noti--hide");
       document.querySelector(".top-noti").classList.remove(removedClass);
     }, 3000);
   }
@@ -248,4 +256,5 @@ export {
   toggleTelegramConfigPopup,
   getTelegramConfigData,
   showNotification,
+  fillTelegramConfigData,
 };

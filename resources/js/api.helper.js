@@ -8,6 +8,8 @@
 
 /**
  * @param  {APIParams} params
+ *
+ * @return {JSON|Promise} response - success response from server or a rejected promise
  */
 async function callAPI(params) {
   params.endpoint = params.endpoint || "GET";
@@ -31,6 +33,7 @@ async function callAPI(params) {
     })
     .catch(function (err) {
       console.warn("failed to call api", params, err);
+      return Promise.reject(err);
     });
 
   return resp;

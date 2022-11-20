@@ -24,6 +24,7 @@ import {
   toggleTelegramConfigPopup,
   getTelegramConfigData,
   showNotification,
+  fillTelegramConfigData,
 } from "./view.js";
 
 import {
@@ -33,6 +34,7 @@ import {
   stopScheduleTimeout,
 } from "./schedule.helper.js";
 import { NOTIFICATION_TYPE, SECOND } from "./constants.js";
+import { sendMessage } from "./telegram.helper.js";
 
 window.timerVal = 0;
 
@@ -87,7 +89,7 @@ Neutralino.init();
 Neutralino.events.on("trayMenuItemClicked", onTrayMenuItemClicked);
 Neutralino.events.on("windowClose", onWindowClose);
 
-function initButtonEvent() {
+(function initButtonEvent() {
   document
     .getElementById("btnReset")
     .addEventListener("click", onClickBtnReset);
@@ -112,10 +114,34 @@ function initButtonEvent() {
   document
     .getElementById("btnTestTelegramAccount")
     .addEventListener("click", onClickBtnTestTelegram);
-
   enableStartComponent();
-}
-initButtonEvent();
+})();
+
+(async function initTelegramConfig() {
+  let botToken = "",
+    chatId = "";
+  try {
+    botToken = await Neutralino.storage.getData("TEST_T");
+    chatId = await Neutralino.storage.getData("TEST_ID");
+  } catch (e) {}
+
+  if (botToken.length * chatId.length === 0) {
+    showNotification(
+      NOTIFICATION_TYPE.ERROR,
+      "Telegram Account does not exist"
+    );
+  } else {
+    fillTelegramConfigData({
+      botToken,
+      chatID: chatId,
+    });
+
+    showNotification(
+      NOTIFICATION_TYPE.SUCCESS,
+      "Telegram Account loaded successfully!"
+    );
+  }
+})();
 
 if (NL_OS != "Darwin") {
   // TODO: Fix https://github.com/neutralinojs/neutralinojs/issues/615
@@ -310,5 +336,26 @@ async function onClickBtnTestTelegram() {
   if (!userInput) {
     //show error toast
     showNotification(NOTIFICATION_TYPE.ERROR, "Missing Data");
+    return;
+  }
+  try {
+    const res = await sendMessage(
+      {
+        chat_id: userInput.chatID,
+        text: `Test Msg from Ninja Deletion: ${new Date()}`,
+      },
+      userInput.botToken
+    );
+    if (res) {
+      showNotification(
+        NOTIFICATION_TYPE.SUCCESS,
+        "Test message was sent successfully!"
+      );
+    }
+  } catch (e) {
+    showNotification(
+      NOTIFICATION_TYPE.ERROR,
+      "Failed!!! Please check your data again!"
+    );
   }
 }

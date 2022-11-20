@@ -29,16 +29,25 @@ import { callAPI } from "./api.helper.js";
 
 /**
  * @param  {TelegramSendMessageBody} body
+ * @param {string} botToken - optional, immediately token for testing
+ *
+ * @return {Promise} result - result when call api
  */
 
-async function sendMessage(body) {
-  const token = await Neutralino.storage.getData("TEST_T");
+async function sendMessage(body, botToken = "") {
+  const token =
+    botToken === "" ? await Neutralino.storage.getData("TEST_T") : botToken;
+
+  if (body.chat_id[0] != "-") {
+    body.chat_id = "-" + body.chat_id; //chat_id has to begin with letter -
+  }
+
   const apiParams = {
     method: "POST",
     endpoint: `https://api.telegram.org/bot${token}/sendMessage`,
     data: body,
   };
-  await callAPI(apiParams);
+  return await callAPI(apiParams);
 }
 
 export { sendMessage };
