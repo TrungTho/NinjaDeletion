@@ -112,7 +112,8 @@ async function syncResultLogs(stats) {
 
   await sendMessage({
     text: logs,
-    chat_id: `-${await Neutralino.storage.getData("TEST_ID")}`,
+    chat_id: `-${window.TelegramData.chatID}`,
+    // chat_id: `-${await Neutralino.storage.getData("TEST_ID")}`,
     parse_mode: TELEGRAM_PARSE_MODE,
   });
 }

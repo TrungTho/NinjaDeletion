@@ -37,7 +37,14 @@ import {
 import { NOTIFICATION_TYPE, SECOND } from "./constants.js";
 import { sendMessage } from "./telegram.helper.js";
 
+/**
+ * Value for count-down timer
+ * @type {number} timerVal
+ */
 window.timerVal = 0;
+
+/** @type {import("./telegram.helper.js").TelegramBotAPIConfig} */
+window.TelegramData = { botToken: "", chatID: "" };
 
 async function setTray() {
   if (NL_MODE != "window") {
@@ -139,6 +146,11 @@ Neutralino.events.on("windowClose", onWindowClose);
       botToken,
       chatID: chatId,
     });
+
+    window.TelegramData = {
+      botToken: botToken,
+      chatID: chatId,
+    };
 
     showNotification(
       NOTIFICATION_TYPE.SUCCESS,

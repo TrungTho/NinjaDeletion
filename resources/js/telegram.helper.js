@@ -35,8 +35,10 @@ import { callAPI } from "./api.helper.js";
  */
 
 async function sendMessage(body, botToken = "") {
-  const token =
-    botToken === "" ? await Neutralino.storage.getData("TEST_T") : botToken;
+  const token = botToken === "" ? window.TelegramData.botToken : botToken;
+
+  // const token =
+  //     botToken === "" ? await Neutralino.storage.getData("TEST_T") : botToken;
 
   if (body.chat_id[0] != "-") {
     body.chat_id = "-" + body.chat_id; //chat_id has to begin with letter -
