@@ -1,4 +1,4 @@
-# Ninja Deletion App
+# Ninja Deletion App ![ninjaIcon](https://user-images.githubusercontent.com/41388666/203018798-423396eb-f2b6-4c8e-80ab-2a0b429b800d.png)
 
 - **TL;DR** Just delete only anything that **belongs** to you.
 - This is a personal project for cross-platform desktop application purposes only. At first, I wanted to go with **ElectronJS**, but some posts showed that it likes to use a sledgehammer to crack a nut. And then I found **NeutralinoJS**, "a lightweight and portable desktop application development framework".
