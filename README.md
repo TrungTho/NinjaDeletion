@@ -35,6 +35,25 @@ For now this app just supports send logs only via telegram bot api. Here is how:
 - Step 3: Get chat_id of group you created at step 2. How? [Telegram App](https://www.wikihow.com/Know-Chat-ID-on-Telegram-on-Android) - [Telegram Web](https://stackoverflow.com/a/45577773)
 - Step 4: Fill your information, test and save.
 
+# Clone Project
+
+- Install nodejs, npm.
+- Install neu
+  ```
+  npm install -g @neutralinojs/neu
+  ```
+- Clone repo:
+
+  ```
+  git clone https://github.com/TrungTho/NinjaDeletion
+  ```
+
+- Update project binary & file
+  ```
+  neu update
+  ```
+- Modify as you want.
+
 # Icon credits
 
 - `ninjaIcon.png` - Made by [Freepik](https://www.freepik.com/ "‌") and downloaded from [Flaticon](https://www.flaticon.com/ "‌")
