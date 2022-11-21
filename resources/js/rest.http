@@ -1,0 +1,13 @@
+GET http://date.jsontest.com/ HTTP/1.1
+content-type: application/json
+
+###
+POST https://api.telegram.org/bot{{$dotenv API_TOKEN}}/sendMessage HTTP/1.1
+Content-Type: application/json
+
+{
+     "text": "<b>bold</b>",
+    "chat_id": "{{$dotenv CHAT_ID}}",
+    "parse_mode":"HTML"
+}
+

@@ -1,5 +1,6 @@
 # Developer tools' files
 .lite_workspace.lua
+/out
 
 # Neutralinojs binaries and builds
 /bin
@@ -14,3 +15,4 @@ neutralino.js
 
 # Other folders
 /.tmp
+.env
