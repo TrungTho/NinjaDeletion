@@ -110,6 +110,7 @@ function enableStartComponent() {
 function resetUI() {
   getListElement().innerHTML = "";
   document.getElementById("inpDelayTime").value = "";
+  document.getElementById("inpProcesses").value = "";
   enableStartComponent();
 }
 
@@ -234,6 +235,18 @@ function showNotification(type, msg) {
     }, 3000);
   }
 }
+/**
+ * @return {Array.<string>} processes - list of processes user wants to kill
+ */
+function getCustomProcesses() {
+  const raw = document.getElementById("inpProcesses").value.trim();
+  const res = raw.split(",");
+  for (let item of res) {
+    item = item.trim();
+  }
+
+  return res;
+}
 
 export {
   getListElement,
@@ -257,4 +270,5 @@ export {
   getTelegramConfigData,
   showNotification,
   fillTelegramConfigData,
+  getCustomProcesses,
 };

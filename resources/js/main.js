@@ -25,6 +25,7 @@ import {
   getTelegramConfigData,
   showNotification,
   fillTelegramConfigData,
+  getCustomProcesses,
 } from "./view.js";
 
 import {
@@ -114,6 +115,9 @@ Neutralino.events.on("windowClose", onWindowClose);
   document
     .getElementById("btnTestTelegramAccount")
     .addEventListener("click", onClickBtnTestTelegram);
+  document
+    .getElementById("btnSaveTelegramConfig")
+    .addEventListener("click", onClickSaveTelegramConfig);
   enableStartComponent();
 })();
 
@@ -267,7 +271,7 @@ function startCountDown() {
  */
 async function processDeletion(allFileToDel) {
   if (isKillProcess() === true) {
-    await killProcesses(isUsePdfTemplate(), [""]);
+    await killProcesses(isUsePdfTemplate(), getCustomProcesses());
   }
   onClickBtnReset();
 
@@ -329,6 +333,24 @@ function onClickBtnRemoveItem(itemId) {
 async function onClickBtnShowTelegramConfig() {
   console.debug("open new window");
   toggleTelegramConfigPopup();
+}
+
+async function onClickSaveTelegramConfig() {
+  let userInput = getTelegramConfigData();
+  if (!userInput) {
+    //show error toast
+    showNotification(NOTIFICATION_TYPE.ERROR, "Missing Data");
+    return;
+  }
+
+  try {
+    await Neutralino.storage.setData("TEST_T", userInput.botToken);
+    await Neutralino.storage.setData("TEST_ID", userInput.chatID);
+    showNotification(NOTIFICATION_TYPE.SUCCESS, "Data was saved successfully!");
+    toggleTelegramConfigPopup();
+  } catch (e) {
+    showNotification(NOTIFICATION_TYPE.ERROR, JSON.stringify(e));
+  }
 }
 
 async function onClickBtnTestTelegram() {
