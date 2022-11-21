@@ -279,11 +279,13 @@ async function processDeletion(allFileToDel) {
   console.debug("deletion stats:", JSON.stringify(stats));
 
   if (isLogWhenFinish() == true) {
-    await syncResultLogs(stats);
+    try {
+      await syncResultLogs(stats);
+    } catch (e) {}
   }
 
   if (isCloseWhenFinish() === true) {
-    Neutralino.app.exit();
+    await Neutralino.app.exit();
   }
 }
 

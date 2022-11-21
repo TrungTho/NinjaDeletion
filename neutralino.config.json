@@ -9,8 +9,8 @@
   "enableNativeAPI": true,
   "tokenSecurity": "one-time",
   "logging": {
-    "enabled": true,
-    "writeToLogFile": true
+    "enabled": false,
+    "writeToLogFile": false
   },
   "nativeAllowList": [
     "app.exit",
@@ -26,14 +26,13 @@
     "window.hide",
     "window.show",
     "window.isVisible",
-    "window.*",
-    "storage.*",
-    "app.*"
+    "storage.setData",
+    "storage.getData"
   ],
   "globalVariables": {},
   "modes": {
     "window": {
-      "title": "ninja-deletion",
+      "title": "Ninja Deletion",
       "width": 650,
       "height": 500,
       "minWidth": 600,
@@ -46,7 +45,7 @@
       "maximize": false,
       "hidden": false,
       "resizable": true,
-      "exitProcessOnClose": false,
+      "exitProcessOnClose": true,
       "globalVariables": {
         "PDF_APPS": ["foxitreader*", "pdf*", "acrobat*", "javelin*"]
       }
