@@ -26,8 +26,8 @@
 # Usage
 ![guide](https://user-images.githubusercontent.com/41388666/203017622-6df1e996-ea67-4fb7-94a1-6ad8732503c5.png)
 
-- Download:
-- Note: **the binary file, .neu and WebView2Loader.dll have to be in the same dir.**
+- Download: [ninja-deletion-release-v1.zip](https://github.com/TrungTho/NinjaDeletion/files/10055263/ninja-deletion-release.zip)
+- Note: **the binary file, resources.neu and WebView2Loader.dll have to be in the same dir.**
 
 ---
 
