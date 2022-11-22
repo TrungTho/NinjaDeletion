@@ -4,4 +4,4 @@ run:
 
 .PHONY: build
 build:
-	new build --release --copy-storage
+	neu build --release --copy-storage
