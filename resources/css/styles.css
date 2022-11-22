@@ -208,10 +208,12 @@ button {
 .main__list {
   width: auto;
   min-height: 200px;
+  height: 200px;
   background-color: white;
   margin: 0px var(--main-padding);
   padding: 0px;
   border: dashed 2px var(--separate-color);
+  overflow-y: scroll;
 }
 
 .main__item {
